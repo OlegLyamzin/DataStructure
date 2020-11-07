@@ -67,7 +67,7 @@ namespace DataStructure
             }
         }
 
-        public void DeleteFirst(int quantity)
+        public void DeleteFirst(int quantity=1)
         {
             ShiftToLeft(0, quantity);
             Length -= quantity;
