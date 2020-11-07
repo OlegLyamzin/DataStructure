@@ -133,6 +133,20 @@ namespace DataStructure
             }
         }
 
+        public int GetMaximum()
+        {
+            int max = _array[0];
+            for (int i = 1; i < Length; i++)
+            {
+                if (_array[i] > max)
+                {
+                    max = _array[i];
+                }
+            }
+
+            return max;
+        }
+
         private void DecreaseLenghth()
         {
             int newLenght = _array.Length;

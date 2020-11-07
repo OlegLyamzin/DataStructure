@@ -161,6 +161,14 @@ namespace DataStructureTests
             Assert.AreEqual(expected, actual);
         }
 
+        [TestCase("FirstActualMock",5)]
+        public void GetMaximumTest(string nArrayListMock, int expected)
+        {
+            ArrayList actualArray = GetActualArrayListMock(nArrayListMock);            
+            int actual = actualArray.GetMaximum();
+            Assert.AreEqual(expected, actual);
+        }
+
         private ArrayList GetExpectedArrayListMock(string nExpectedMock)
         {
             int[] array;
