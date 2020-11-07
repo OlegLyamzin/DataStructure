@@ -38,7 +38,17 @@ namespace DataStructure
             Length++;
         }
 
+        public void AddByIndex(int value, int index)
+        {
+            if (_array.Length <= Length)
+            {
+                IncreaseLenght();
+            }
 
+            ShiftToRight(index);
+            _array[index] = value;
+            Length++;
+        }
 
         public override bool Equals(object obj)
         {
