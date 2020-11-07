@@ -47,6 +47,10 @@ namespace DataStructure
 
         public void AddByIndex(int value, int index)
         {
+            if(index >= Length || index < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
             if (_array.Length <= Length)
             {
                 IncreaseLenght();
@@ -80,6 +84,11 @@ namespace DataStructure
 
         public void DeleteByIndex(int index, int quantity = 1)
         {
+            if (index >= Length || index < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
             ShiftToLeft(index, quantity);
             Length -= quantity;
 

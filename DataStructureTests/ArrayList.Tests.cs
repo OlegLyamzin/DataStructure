@@ -57,8 +57,24 @@ namespace DataStructureTests
         {
             ArrayList actual = GetActualArrayListMock(nArrayListMock);
             ArrayList expected = GetExpectedArrayListMock(nExpectedMock);
-            actual.DeleteByIndex(3);
+            actual.DeleteByIndex(index);
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(5, "FirstActualMock")]
+        [TestCase(-1, "FirstActualMock")]
+        public void DeleteByIndexNegativeTest(int index, string nArrayListMock)
+        {
+            try
+            {
+                ArrayList actual = GetActualArrayListMock(nArrayListMock);
+                actual.DeleteByIndex(index);
+            }
+            catch
+            {
+                Assert.Pass();
+            }
+            Assert.Fail();
         }
 
         private ArrayList GetExpectedArrayListMock(string nExpectedMock)
