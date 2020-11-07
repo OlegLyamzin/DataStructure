@@ -77,6 +77,22 @@ namespace DataStructureTests
             Assert.Fail();
         }
 
+        [TestCase(5, "FirstActualMock")]
+        [TestCase(-1, "FirstActualMock")]
+        public void AddByIndexNegativeTest(int index, string nArrayListMock)
+        {
+            try
+            {
+                ArrayList actual = GetActualArrayListMock(nArrayListMock);
+                actual.AddByIndex(6,index);
+            }
+            catch
+            {
+                Assert.Pass();
+            }
+            Assert.Fail();
+        }
+
         private ArrayList GetExpectedArrayListMock(string nExpectedMock)
         {
             int[] array;
