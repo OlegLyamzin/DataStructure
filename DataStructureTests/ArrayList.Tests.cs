@@ -7,21 +7,30 @@ namespace DataStructureTests
     public class Tests
     {
         
-        [TestCase(1,1)]
-        public void AddTest(int nArrayListMock, int nExpectedMock)
+        [TestCase(6,1,1)]
+        public void AddTest(int value, int nArrayListMock, int nExpectedMock)
         {
             ArrayList actual = GetActualArrayListMock(nArrayListMock);
             ArrayList expected = GetExpectedArrayListMock(nExpectedMock);
-            actual.Add(6);
+            actual.Add(value);
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase(1,2)]
-        public void AddFirstTest(int nArrayListMock, int nExpectedMock)
+        [TestCase(6,1,2)]
+        public void AddFirstTest(int value, int nArrayListMock, int nExpectedMock)
         {
             ArrayList actual = GetActualArrayListMock(nArrayListMock);
             ArrayList expected = GetExpectedArrayListMock(nExpectedMock);
-            actual.AddFirst(6);
+            actual.AddFirst(value);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(6,3,1,3)]
+        public void AddByIndexTest(int value,int index, int nArrayListMock, int nExpectedMock)
+        {
+            ArrayList actual = GetActualArrayListMock(nArrayListMock);
+            ArrayList expected = GetExpectedArrayListMock(nExpectedMock);
+            actual.AddByIndex(value,index);
             Assert.AreEqual(expected, actual);
         }
 
@@ -35,6 +44,9 @@ namespace DataStructureTests
                     return new ArrayList(array);
                 case 2:
                     array = new int[] { 6, 1, 2, 3, 4, 5};
+                    return new ArrayList(array);
+                case 3:
+                    array = new int[] {1, 2, 3, 6, 4, 5 };
                     return new ArrayList(array);
                 default:
                     throw new IndexOutOfRangeException();
