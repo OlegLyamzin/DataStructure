@@ -15,6 +15,13 @@ namespace DataStructure
             Length = 0;
         }
 
+        public ArrayList(int[] array)
+        {
+            _array = new int[(int)(array.Length * 1.33 + 1)];
+            Array.Copy(array, _array, array.Length);
+            Length = array.Length;
+        }
+
         public void Add(int value)
         {
             if (_array.Length <= Length)
