@@ -78,6 +78,16 @@ namespace DataStructure
             }
         }
 
+        public void DeleteByIndex(int index, int quantity = 1)
+        {
+            ShiftToLeft(index, quantity);
+            Length -= quantity;
+
+            if (Length < _array.Length / 2)
+            {
+                DecreaseLenghth();
+            }
+        }
 
         private void DecreaseLenghth()
         {
