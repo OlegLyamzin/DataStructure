@@ -96,7 +96,7 @@ namespace DataStructure
                 IncreaseLenght(quantity);
             }
 
-            for (int i = Length-1; i > from; i--)
+            for (int i = Length-1; i >= from; i--)
             {
                 _array[i + quantity] = _array[i];
             }
