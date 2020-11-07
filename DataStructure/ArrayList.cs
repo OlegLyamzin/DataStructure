@@ -57,6 +57,30 @@ namespace DataStructure
             Length++;
         }
 
+        public void DeleteEnd()
+        {
+            Length--;
+
+            if(Length < _array.Length / 2)
+            {
+                DecreaseLenghth();
+            }
+        }
+
+        private void DecreaseLenghth()
+        {
+            int newLenght = _array.Length;
+            while (newLenght/2 >= Length)
+            {
+                newLenght -= (int)(newLenght * 0.33);
+            }
+
+            int[] newArray = new int[newLenght];
+            Array.Copy(_array, newArray, _array.Length);
+
+            _array = newArray;
+        }
+
         public override bool Equals(object obj)
         {
             ArrayList arrayList = (ArrayList)obj;
