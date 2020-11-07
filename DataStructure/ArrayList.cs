@@ -98,6 +98,30 @@ namespace DataStructure
             }
         }
 
+        public int GetLength()
+        {
+            return Length;
+        }
+
+        public int GetValueByIndex(int index)
+        {
+            if (index >= Length || index < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            return _array[index];
+        }
+
+        public void SetValueByIndex(int value, int index)
+        {
+            if (index >= Length || index < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            _array[index] = value;
+        }
+
         private void DecreaseLenghth()
         {
             int newLenght = _array.Length;
