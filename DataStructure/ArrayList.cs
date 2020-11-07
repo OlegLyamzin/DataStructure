@@ -122,6 +122,17 @@ namespace DataStructure
             _array[index] = value;
         }
 
+        public void Reverse()
+        {
+            for (int i = 0; i < (Length / 2); i++)
+            {
+                int indexFromEnd = Length - i - 1;
+                int tmp = _array[i];
+                _array[i] = _array[indexFromEnd];
+                _array[indexFromEnd] = tmp;
+            }
+        }
+
         private void DecreaseLenghth()
         {
             int newLenght = _array.Length;

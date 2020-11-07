@@ -152,6 +152,15 @@ namespace DataStructureTests
             Assert.Fail();
         }
 
+        [TestCase("FirstActualMock", "FirstExpectedMockForReverse")]
+        public void ReverseTest(string nArrayListMock, string nExpectedMock)
+        {
+            ArrayList actual = GetActualArrayListMock(nArrayListMock);
+            ArrayList expected = GetExpectedArrayListMock(nExpectedMock);
+            actual.Reverse();
+            Assert.AreEqual(expected, actual);
+        }
+
         private ArrayList GetExpectedArrayListMock(string nExpectedMock)
         {
             int[] array;
@@ -177,6 +186,9 @@ namespace DataStructureTests
                     return new ArrayList(array);
                 case "FirstExpectedMockForSetValueByIndex":
                     array = new int[] { 1, 2, 8,4, 5 };
+                    return new ArrayList(array);
+                case "FirstExpectedMockForReverse":
+                    array = new int[] { 5,4,3,2,1 };
                     return new ArrayList(array);
                 default:
                     throw new IndexOutOfRangeException();
