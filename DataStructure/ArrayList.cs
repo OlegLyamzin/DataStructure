@@ -57,20 +57,32 @@ namespace DataStructure
             Length++;
         }
 
-        public void DeleteEnd()
+        public void DeleteEnd(int quantity = 1)
         {
-            Length--;
+            Length -= quantity;
 
-            if(Length < _array.Length / 2)
+            if (Length < _array.Length / 2)
             {
                 DecreaseLenghth();
             }
         }
 
+        public void DeleteFirst(int quantity)
+        {
+            ShiftToLeft(0, quantity);
+            Length -= quantity;
+
+            if (Length < _array.Length / 2)
+            {
+                DecreaseLenghth();
+            }
+        }
+
+
         private void DecreaseLenghth()
         {
             int newLenght = _array.Length;
-            while (newLenght/2 >= Length)
+            while (newLenght / 2 >= Length)
             {
                 newLenght -= (int)(newLenght * 0.33);
             }
@@ -113,16 +125,23 @@ namespace DataStructure
             _array = newArray;
         }
 
-        private void ShiftToRight(int from, int quantity=1)
+        private void ShiftToRight(int from, int quantity = 1)
         {
             if (_array.Length <= Length)
             {
                 IncreaseLenght(quantity);
             }
 
-            for (int i = Length-1; i >= from; i--)
+            for (int i = Length - 1; i >= from; i--)
             {
                 _array[i + quantity] = _array[i];
+            }
+        }
+        private void ShiftToLeft(int from, int quantity=1)
+        {
+            for (int i = from; i < Length-1; i++)
+            {
+                _array[i] = _array[i+quantity];
             }
         }
     }
