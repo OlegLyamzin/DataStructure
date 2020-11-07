@@ -52,6 +52,15 @@ namespace DataStructureTests
             Assert.AreEqual(expected, actual);
         }
 
+        [TestCase(3,"FirstActualMock", "FirstExpectedMockForDeleteByIndex")]
+        public void DeleteByIndexTest(int index, string nArrayListMock, string nExpectedMock)
+        {
+            ArrayList actual = GetActualArrayListMock(nArrayListMock);
+            ArrayList expected = GetExpectedArrayListMock(nExpectedMock);
+            actual.DeleteByIndex(3);
+            Assert.AreEqual(expected, actual);
+        }
+
         private ArrayList GetExpectedArrayListMock(string nExpectedMock)
         {
             int[] array;
@@ -71,6 +80,9 @@ namespace DataStructureTests
                     return new ArrayList(array);
                 case "FirstExpectedMockForDeleteFirst":
                     array = new int[] { 2, 3, 4, 5 };
+                    return new ArrayList(array);
+                case "FirstExpectedMockForDeleteByIndex":
+                    array = new int[] { 1, 2, 3, 5 };
                     return new ArrayList(array);
                 default:
                     throw new IndexOutOfRangeException();
