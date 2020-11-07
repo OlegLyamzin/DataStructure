@@ -93,6 +93,65 @@ namespace DataStructureTests
             Assert.Fail();
         }
 
+        [TestCase("FirstActualMock", 5)]
+        public void GetLengthTest(string nArrayListMock, int expected)
+        {
+            ArrayList actualArray = GetActualArrayListMock(nArrayListMock);
+            int actual = actualArray.GetLength();
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase("FirstActualMock",3, 4)]
+        public void GetValueByIndexTest(string nArrayListMock,int index, int expected)
+        {
+            ArrayList actualArray = GetActualArrayListMock(nArrayListMock);
+            int actual = actualArray.GetValueByIndex(index);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase("FirstActualMock", 5)]
+        [TestCase("FirstActualMock", -1)]
+        public void GetValueByIndexNegativeTest(string nArrayListMock, int index)
+        {
+            ArrayList actual = GetActualArrayListMock(nArrayListMock);
+            try
+            {
+                
+                actual.GetValueByIndex(index);
+            }
+            catch
+            {
+                Assert.Pass();
+            }
+            Assert.Fail();
+        }
+
+        [TestCase(8,2,"FirstActualMock", "FirstExpectedMockForSetValueByIndex")]
+        public void SetValueByIndexTest(int value, int index, string nArrayListMock, string nExpectedMock)
+        {
+            ArrayList actual = GetActualArrayListMock(nArrayListMock);
+            ArrayList expected = GetExpectedArrayListMock(nExpectedMock);
+            actual.SetValueByIndex(value,index);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase("FirstActualMock", 5)]
+        [TestCase("FirstActualMock", -1)]
+        public void SetValueByIndexNegativeTest(string nArrayListMock, int index)
+        {
+            ArrayList actual = GetActualArrayListMock(nArrayListMock);
+            try
+            {
+
+                actual.SetValueByIndex(3,index);
+            }
+            catch
+            {
+                Assert.Pass();
+            }
+            Assert.Fail();
+        }
+
         private ArrayList GetExpectedArrayListMock(string nExpectedMock)
         {
             int[] array;
@@ -115,6 +174,9 @@ namespace DataStructureTests
                     return new ArrayList(array);
                 case "FirstExpectedMockForDeleteByIndex":
                     array = new int[] { 1, 2, 3, 5 };
+                    return new ArrayList(array);
+                case "FirstExpectedMockForSetValueByIndex":
+                    array = new int[] { 1, 2, 8,4, 5 };
                     return new ArrayList(array);
                 default:
                     throw new IndexOutOfRangeException();
