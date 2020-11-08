@@ -169,6 +169,14 @@ namespace DataStructureTests
             Assert.AreEqual(expected, actual);
         }
 
+        [TestCase("FirstActualMock", 1)]
+        public void GetMinimumTest(string nArrayListMock, int expected)
+        {
+            ArrayList actualArray = GetActualArrayListMock(nArrayListMock);
+            int actual = actualArray.GetMinimum();
+            Assert.AreEqual(expected, actual);
+        }
+
         private ArrayList GetExpectedArrayListMock(string nExpectedMock)
         {
             int[] array;

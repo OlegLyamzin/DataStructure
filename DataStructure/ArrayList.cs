@@ -147,6 +147,20 @@ namespace DataStructure
             return max;
         }
 
+        public int GetMinimum()
+        {
+            int min = _array[0];
+            for (int i = 1; i < Length; i++)
+            {
+                if (_array[i] < min)
+                {
+                    min = _array[i];
+                }
+            }
+
+            return min;
+        }
+
         private void DecreaseLenghth()
         {
             int newLenght = _array.Length;
