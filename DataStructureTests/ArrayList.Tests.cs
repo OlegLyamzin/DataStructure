@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using DataStructure;
 using System;
+using System.Runtime;
 
 namespace DataStructureTests
 {
@@ -237,6 +238,58 @@ namespace DataStructureTests
             Assert.AreEqual(expected, actual);
         }
 
+        [TestCase(3, "FirstActualMock", "FirstExpectedMockForDeleteByValue")]
+        [TestCase(23, "SecondActualMock", "SecondExpectedMockForDeleteByValue")]
+        public void DeleteByValueTest(int value, string nArrayListMock, string nExpectedMock)
+        {
+            ArrayList actual = GetActualArrayListMock(nArrayListMock);
+            ArrayList expected = GetExpectedArrayListMock(nExpectedMock);
+            actual.DeleteByValue(value);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(6, "FirstActualMock")]
+        [TestCase(-1, "FirstActualMock")]
+        public void DeleteByValueNegativeTest(int value, string nArrayListMock)
+        {
+            try
+            {
+                ArrayList actual = GetActualArrayListMock(nArrayListMock);
+                actual.DeleteByValue(value);
+            }
+            catch
+            {
+                Assert.Pass();
+            }
+            Assert.Fail();
+        }
+
+        [TestCase(3, "FirstActualMock", "FirstExpectedMockForDeleteByValueAll")]
+        [TestCase(23, "SecondActualMock", "SecondExpectedMockForDeleteByValueAll")]
+        public void DeleteByValueAllTest(int value, string nArrayListMock, string nExpectedMock)
+        {
+            ArrayList actual = GetActualArrayListMock(nArrayListMock);
+            ArrayList expected = GetExpectedArrayListMock(nExpectedMock);
+            actual.DeleteByValueAll(value);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(6, "FirstActualMock")]
+        [TestCase(-1, "FirstActualMock")]
+        public void DeleteByValueAllNegativeTest(int value, string nArrayListMock)
+        {
+            try
+            {
+                ArrayList actual = GetActualArrayListMock(nArrayListMock);
+                actual.DeleteByValueAll(value);
+            }
+            catch
+            {
+                Assert.Pass();
+            }
+            Assert.Fail();
+        }
+
         private ArrayList GetExpectedArrayListMock(string nExpectedMock)
         {
             int[] array;
@@ -274,6 +327,18 @@ namespace DataStructureTests
                     return new ArrayList(array);
                 case "SecondExpectedMockForSortInversion":
                     array = new int[] { 657,546,54,43,23,23,2};
+                    return new ArrayList(array);
+                case "FirstExpectedMockForDeleteByValue":
+                    array = new int[] { 1, 2, 4, 5 };
+                    return new ArrayList(array);
+                case "SecondExpectedMockForDeleteByValue":
+                    array = new int[] { 54, 43, 657, 546, 23, 2 };
+                    return new ArrayList(array);
+                case "FirstExpectedMockForDeleteByValueAll":
+                    array = new int[] { 1, 2, 4, 5 };
+                    return new ArrayList(array);
+                case "SecondExpectedMockForDeleteByValueAll":
+                    array = new int[] { 54, 43, 657, 546, 2 };
                     return new ArrayList(array);
                 default:
                     throw new IndexOutOfRangeException();

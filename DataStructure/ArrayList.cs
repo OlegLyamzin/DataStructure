@@ -231,6 +231,41 @@ namespace DataStructure
             }
         }
 
+        public void DeleteByValue(int value)
+        {
+            int i;
+            for(i = 0; i < Length && _array[i] != value; i++)
+            {
+
+            }
+
+            if(i == Length)
+            {
+                throw new Exception("Value is not exist");
+            }
+
+            DeleteByIndex(i);
+        }
+
+        public void DeleteByValueAll(int value)
+        {
+            bool isExist = false;
+            for (int i = 0; i < Length; i++)
+            {
+                if(_array[i] == value)
+                {
+                    DeleteByIndex(i);
+                    isExist = true;
+                }
+            }
+
+            if (!isExist)
+            {
+                throw new Exception("Value is not exist");
+            }
+
+        }
+
         private void DecreaseLenghth()
         {
             int newLenght = _array.Length;
