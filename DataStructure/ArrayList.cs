@@ -113,6 +113,19 @@ namespace DataStructure
             return _array[index];
         }
 
+        public int GetIndexByValue(int value)
+        {
+            
+            for(int i = 0; i < Length; i++)
+            {
+                if(_array[i] == value)
+                {
+                    return i;
+                }
+            }
+            throw new Exception("Value is not exist");
+        }
+
         public void SetValueByIndex(int value, int index)
         {
             if (index >= Length || index < 0)
@@ -188,6 +201,8 @@ namespace DataStructure
 
             return maxIndex;
         }
+
+
 
         private void DecreaseLenghth()
         {

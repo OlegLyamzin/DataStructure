@@ -126,6 +126,31 @@ namespace DataStructureTests
             Assert.Fail();
         }
 
+        [TestCase("FirstActualMock", 3, 2)]
+        public void GetIndexByValueTest(string nArrayListMock, int value, int expected)
+        {
+            ArrayList actualArray = GetActualArrayListMock(nArrayListMock);
+            int actual = actualArray.GetIndexByValue(value);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase("FirstActualMock", 6)]
+        [TestCase("FirstActualMock", 0)]
+        public void GetIndexByValueNegativeTest(string nArrayListMock, int value)
+        {
+            ArrayList actual = GetActualArrayListMock(nArrayListMock);
+            try
+            {
+
+                actual.GetIndexByValue(value);
+            }
+            catch
+            {
+                Assert.Pass();
+            }
+            Assert.Fail();
+        }
+
         [TestCase(8,2,"FirstActualMock", "FirstExpectedMockForSetValueByIndex")]
         public void SetValueByIndexTest(int value, int index, string nArrayListMock, string nExpectedMock)
         {
