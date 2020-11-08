@@ -177,6 +177,22 @@ namespace DataStructureTests
             Assert.AreEqual(expected, actual);
         }
 
+        [TestCase("FirstActualMock", 4)]
+        public void GetIndexOfMaximumTest(string nArrayListMock, int expected)
+        {
+            ArrayList actualArray = GetActualArrayListMock(nArrayListMock);
+            int actual = actualArray.GetIndexOfMaximum();
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase("FirstActualMock", 0)]
+        public void GetIndexOfMinimumTest(string nArrayListMock, int expected)
+        {
+            ArrayList actualArray = GetActualArrayListMock(nArrayListMock);
+            int actual = actualArray.GetIndexOfMinimum();
+            Assert.AreEqual(expected, actual);
+        }
+
         private ArrayList GetExpectedArrayListMock(string nExpectedMock)
         {
             int[] array;
