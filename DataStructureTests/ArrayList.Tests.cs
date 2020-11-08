@@ -290,6 +290,33 @@ namespace DataStructureTests
             Assert.Fail();
         }
 
+        [TestCase(new int[] { 6,7,8}, "FirstActualMock", "FirstExpectedMockForAddMassive")]
+        public void AddMassiveTest(int[] values, string nArrayListMock, string nExpectedMock)
+        {
+            ArrayList actual = GetActualArrayListMock(nArrayListMock);
+            ArrayList expected = GetExpectedArrayListMock(nExpectedMock);
+            actual.Add(values);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { 55, 43, 23 }, "FirstActualMock", "FirstExpectedMockForAddFirstMassive")]
+        public void AddFirstMassiveTest(int[] values, string nArrayListMock, string nExpectedMock)
+        {
+            ArrayList actual = GetActualArrayListMock(nArrayListMock);
+            ArrayList expected = GetExpectedArrayListMock(nExpectedMock);
+            actual.AddFirst(values);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { 2, 5, 7 }, 3, "FirstActualMock", "FirstExpectedMockForAddByIndexMassive")]
+        public void AddByIndexMassiveTest(int[] values, int index, string nArrayListMock, string nExpectedMock)
+        {
+            ArrayList actual = GetActualArrayListMock(nArrayListMock);
+            ArrayList expected = GetExpectedArrayListMock(nExpectedMock);
+            actual.AddByIndex(values, index);
+            Assert.AreEqual(expected, actual);
+        }
+
         private ArrayList GetExpectedArrayListMock(string nExpectedMock)
         {
             int[] array;
@@ -339,6 +366,15 @@ namespace DataStructureTests
                     return new ArrayList(array);
                 case "SecondExpectedMockForDeleteByValueAll":
                     array = new int[] { 54, 43, 657, 546, 2 };
+                    return new ArrayList(array);
+                case "FirstExpectedMockForAddMassive":
+                    array = new int[] { 1, 2, 3, 4, 5,6,7,8 };
+                    return new ArrayList(array);
+                case "FirstExpectedMockForAddFirstMassive":
+                    array = new int[] { 55,43,23,1, 2, 3, 4, 5 };
+                    return new ArrayList(array);
+                case "FirstExpectedMockForAddByIndexMassive":
+                    array = new int[] { 1, 2, 3,2,5,7, 4, 5 };
                     return new ArrayList(array);
                 default:
                     throw new IndexOutOfRangeException();

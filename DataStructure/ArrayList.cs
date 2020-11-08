@@ -33,6 +33,20 @@ namespace DataStructure
             Length++;
         }
 
+        public void Add(int[] values)
+        {
+            if(_array.Length <= Length + values.Length)
+            {
+                IncreaseLenght(values.Length);
+            }
+
+            for(int i = 0; i < values.Length; i++)
+            {
+                _array[Length] = values[i];
+                Length++;
+            }
+        }
+
         public void AddFirst(int value)
         {
             if (_array.Length <= Length)
@@ -43,6 +57,22 @@ namespace DataStructure
             ShiftToRight(0);
             _array[0] = value;
             Length++;
+        }
+
+        public void AddFirst(int[] values)
+        {
+            if (_array.Length <= Length + values.Length)
+            {
+                IncreaseLenght(values.Length);
+            }
+
+            ShiftToRight(0, values.Length);
+
+            for (int i = 0; i < values.Length; i++)
+            {
+                _array[i] = values[i];
+                Length++;
+            }
         }
 
         public void AddByIndex(int value, int index)
@@ -59,6 +89,26 @@ namespace DataStructure
             ShiftToRight(index);
             _array[index] = value;
             Length++;
+        }
+
+        public void AddByIndex(int[] values, int index)
+        {
+            if (index >= Length || index < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            if (_array.Length <= Length + values.Length)
+            {
+                IncreaseLenght(values.Length);
+            }
+
+            ShiftToRight(index, values.Length);
+
+            for (int i = 0; i < values.Length; i++)
+            {
+                _array[index + i] = values[i];
+                Length++;
+            }
         }
 
         public void DeleteEnd(int quantity = 1)
