@@ -134,7 +134,10 @@ namespace DataStructure
 
         public void DeleteByIndex(int index, int quantity = 1)
         {
-            if (index >= Length || index < 0)
+            if (index >= Length ||
+                index < 0 ||
+                index + quantity > Length
+                )
             {
                 throw new IndexOutOfRangeException();
             }

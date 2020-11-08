@@ -317,6 +317,67 @@ namespace DataStructureTests
             Assert.AreEqual(expected, actual);
         }
 
+        [TestCase(5, "FirstActualMock")]
+        [TestCase(-1, "FirstActualMock")]
+        public void AddByIndexMassiveNegativeTest(int index, string nArrayListMock)
+        {
+            try
+            {
+                ArrayList actual = GetActualArrayListMock(nArrayListMock);
+                actual.AddByIndex(new int[] { 1, 2, 3 }, index);
+            }
+            catch
+            {
+                Assert.Pass();
+            }
+            Assert.Fail();
+        }
+
+        [TestCase(2,"FirstActualMock", "FirstExpectedMockForDeleteEndSeveral")]
+        public void DeleteEndSeveralTest(int quantity, string nArrayListMock, string nExpectedMock)
+        {
+            ArrayList actual = GetActualArrayListMock(nArrayListMock);
+            ArrayList expected = GetExpectedArrayListMock(nExpectedMock);
+            actual.DeleteEnd(quantity);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(2,"FirstActualMock", "FirstExpectedMockForDeleteFirstSeveral")]
+        public void DeleteFirstSeveralTest(int quantity,string nArrayListMock, string nExpectedMock)
+        {
+            ArrayList actual = GetActualArrayListMock(nArrayListMock);
+            ArrayList expected = GetExpectedArrayListMock(nExpectedMock);
+            actual.DeleteFirst(quantity);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(2,2, "FirstActualMock", "FirstExpectedMockForDeleteByIndexSeveral")]
+        public void DeleteByIndexSeveralTest(int index,int quantity, string nArrayListMock, string nExpectedMock)
+        {
+            ArrayList actual = GetActualArrayListMock(nArrayListMock);
+            ArrayList expected = GetExpectedArrayListMock(nExpectedMock);
+            actual.DeleteByIndex(index,quantity);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(5,1, "FirstActualMock")]
+        [TestCase(-1,1, "FirstActualMock")]
+        [TestCase(4, 3, "FirstActualMock")]
+        [TestCase(3, 3, "FirstActualMock")]
+        public void DeleteByIndexSveralNegativeTest(int index,int quantity, string nArrayListMock)
+        {
+            try
+            {
+                ArrayList actual = GetActualArrayListMock(nArrayListMock);
+                actual.DeleteByIndex(index,quantity);
+            }
+            catch
+            {
+                Assert.Pass();
+            }
+            Assert.Fail();
+        }
+
         private ArrayList GetExpectedArrayListMock(string nExpectedMock)
         {
             int[] array;
@@ -375,6 +436,15 @@ namespace DataStructureTests
                     return new ArrayList(array);
                 case "FirstExpectedMockForAddByIndexMassive":
                     array = new int[] { 1, 2, 3,2,5,7, 4, 5 };
+                    return new ArrayList(array);
+                case "FirstExpectedMockForDeleteEndSeveral":
+                    array = new int[] { 1, 2, 3 };
+                    return new ArrayList(array);
+                case "FirstExpectedMockForDeleteFirstSeveral":
+                    array = new int[] { 3, 4, 5 };
+                    return new ArrayList(array);
+                case "FirstExpectedMockForDeleteByIndexSeveral":
+                    array = new int[] { 1, 2, 5 };
                     return new ArrayList(array);
                 default:
                     throw new IndexOutOfRangeException();
