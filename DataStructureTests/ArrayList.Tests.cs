@@ -218,6 +218,25 @@ namespace DataStructureTests
             Assert.AreEqual(expected, actual);
         }
 
+        [TestCase("SecondActualMock", "SecondExpectedMockForSort")]
+        public void SortTest(string nArrayListMock, string nExpectedMock)
+        {
+            ArrayList actual = GetActualArrayListMock(nArrayListMock);
+            ArrayList expected = GetExpectedArrayListMock(nExpectedMock);
+            actual.Sort();
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase("FirstActualMock", "FirstExpectedMockForSortInversion")]
+        [TestCase("SecondActualMock", "SecondExpectedMockForSortInversion")]
+        public void SortInversionTest(string nArrayListMock, string nExpectedMock)
+        {
+            ArrayList actual = GetActualArrayListMock(nArrayListMock);
+            ArrayList expected = GetExpectedArrayListMock(nExpectedMock);
+            actual.SortInversion();
+            Assert.AreEqual(expected, actual);
+        }
+
         private ArrayList GetExpectedArrayListMock(string nExpectedMock)
         {
             int[] array;
@@ -247,6 +266,15 @@ namespace DataStructureTests
                 case "FirstExpectedMockForReverse":
                     array = new int[] { 5,4,3,2,1 };
                     return new ArrayList(array);
+                case "SecondExpectedMockForSort":
+                    array = new int[] { 2,23,23,43,54,546,657 };
+                    return new ArrayList(array);
+                case "FirstExpectedMockForSortInversion":
+                    array = new int[] { 5, 4, 3, 2, 1 };
+                    return new ArrayList(array);
+                case "SecondExpectedMockForSortInversion":
+                    array = new int[] { 657,546,54,43,23,23,2};
+                    return new ArrayList(array);
                 default:
                     throw new IndexOutOfRangeException();
             }
@@ -259,7 +287,10 @@ namespace DataStructureTests
             {
                 case "FirstActualMock":
                     array = new int[] { 1, 2, 3, 4, 5 };
-                    return new ArrayList(array);                    
+                    return new ArrayList(array);
+                case "SecondActualMock":
+                    array = new int[] { 54,43,23,657,546,23,2};
+                    return new ArrayList(array);
                 default:
                     throw new IndexOutOfRangeException();
             }

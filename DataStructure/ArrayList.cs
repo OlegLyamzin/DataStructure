@@ -202,7 +202,34 @@ namespace DataStructure
             return maxIndex;
         }
 
+        public void Sort()
+        {            
+            for (int i = 1; i < Length; i++)
+            {
+                int j;
+                int key = _array[i];
+                for (j = i; j > 0 && _array[j - 1] > key; j--)
+                {                    
+                    _array[j] = _array[j - 1];                    
+                }
+                _array[j] = key;
+            }
+            
+        }
 
+        public void SortInversion()
+        {
+            for (int i = 1; i < Length; i++)
+            {
+                int j;
+                int key = _array[i];
+                for (j = i; j > 0 && _array[j - 1] < key; j--)
+                {
+                    _array[j] = _array[j - 1];
+                }
+                _array[j] = key;
+            }
+        }
 
         private void DecreaseLenghth()
         {
