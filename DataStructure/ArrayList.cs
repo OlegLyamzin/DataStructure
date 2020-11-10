@@ -114,6 +114,10 @@ namespace DataStructure
 
         public void DeleteEnd(int quantity = 1)
         {
+            if(quantity < 0)
+            {
+                throw new ArgumentOutOfRangeException("Parameter quantity can't be negative");
+            }
             if(0> Length - quantity)
             {
                 throw new IndexOutOfRangeException();
@@ -128,6 +132,10 @@ namespace DataStructure
 
         public void DeleteFirst(int quantity=1)
         {
+            if (quantity < 0)
+            {
+                throw new ArgumentOutOfRangeException("Parameter quantity can't be negative");
+            }
             if (0 > Length - quantity)
             {
                 throw new IndexOutOfRangeException();

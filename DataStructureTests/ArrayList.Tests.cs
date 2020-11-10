@@ -127,7 +127,7 @@ namespace DataStructureTests
 
         [TestCase(3, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2})]
         [TestCase(3, new int[] { 0,1,2 }, new int[] { })]
-        [TestCase(1, new int[] { 1, -4 }, new int[] { 1 })]
+        [TestCase(0, new int[] { 1, -4 }, new int[] { 1,-4 })]
         public void DeleteEndFewElementsTest(int quantity, int[] array, int[] expectedArray)
         {
             ArrayList actual = new ArrayList(array);
@@ -140,11 +140,20 @@ namespace DataStructureTests
 
         [TestCase(1,new int[] {})]
         [TestCase(4, new int[] {1,2,3 })]
+        [TestCase(-1, new int[] { 1, 2, 3 })]
+        [TestCase(-7, new int[] { 1, 2, 3 })]
         public void DeleteEndNegativeTest(int quantity, int[] array)
         {
             ArrayList actual = new ArrayList(array);
 
-            Assert.Throws<IndexOutOfRangeException>(()=> actual.DeleteEnd(quantity));            
+            if (quantity >= 0)
+            {
+            Assert.Throws<IndexOutOfRangeException>(()=> actual.DeleteEnd(quantity)); 
+            }
+            else if(quantity < 0)
+            {
+                Assert.Throws<ArgumentOutOfRangeException>(() => actual.DeleteEnd(quantity));
+            }
         }
 
         [TestCase(new int[] { 1, 2, 3, 4, 5 }, new int[] { 2, 3, 4,5 })]
@@ -162,7 +171,7 @@ namespace DataStructureTests
 
         [TestCase(3, new int[] { 1, 2, 3, 4, 5 }, new int[] { 4,5 })]
         [TestCase(3, new int[] { 0, 1, 2 }, new int[] { })]
-        [TestCase(1, new int[] { 1, -4 }, new int[] { -4})]
+        [TestCase(0, new int[] { 1, -4 }, new int[] { 1,-4})]
         public void DeleteFirstFewElementsTest(int quantity, int[] array, int[] expectedArray)
         {
             ArrayList actual = new ArrayList(array);
@@ -181,7 +190,14 @@ namespace DataStructureTests
         {
             ArrayList actual = new ArrayList(array);
 
-            Assert.Throws<IndexOutOfRangeException>(() => actual.DeleteFirst(quantity));
+            if (quantity >= 0)
+            {
+                Assert.Throws<IndexOutOfRangeException>(() => actual.DeleteFirst(quantity));
+            }
+            else if (quantity < 0)
+            {
+                Assert.Throws<ArgumentOutOfRangeException>(() => actual.DeleteFirst(quantity));
+            }
         }
 
         [TestCase(3,"FirstActualMock", "FirstExpectedMockForDeleteByIndex")]
