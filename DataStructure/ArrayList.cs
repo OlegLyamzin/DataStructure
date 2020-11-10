@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace DataStructure
 {
@@ -319,19 +320,6 @@ namespace DataStructure
 
         }
 
-        private void DecreaseLenghth()
-        {
-            int newLenght = _array.Length;
-            while (newLenght / 2 >= Length)
-            {
-                newLenght -= (int)(newLenght * 0.33);
-            }
-
-            int[] newArray = new int[newLenght];
-            Array.Copy(_array, newArray, _array.Length);
-
-            _array = newArray;
-        }
 
         public override bool Equals(object obj)
         {
@@ -351,6 +339,26 @@ namespace DataStructure
             }
             return true;
         }
+
+        public override string ToString()
+        {
+            return string.Join(";", _array.Take(Length));
+        }
+
+        private void DecreaseLenghth()
+        {
+            int newLenght = _array.Length;
+            while (newLenght / 2 >= Length)
+            {
+                newLenght -= (int)(newLenght * 0.33);
+            }
+
+            int[] newArray = new int[newLenght];
+            Array.Copy(_array, newArray, _array.Length);
+
+            _array = newArray;
+        }
+
         private void IncreaseLenght(int number = 1)
         {
             int newLenght = Length;
