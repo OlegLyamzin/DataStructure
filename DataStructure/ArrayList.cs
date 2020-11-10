@@ -114,9 +114,13 @@ namespace DataStructure
 
         public void DeleteEnd(int quantity = 1)
         {
+            if(0> Length - quantity)
+            {
+                throw new IndexOutOfRangeException();
+            }
             Length -= quantity;
 
-            if (Length < _array.Length / 2)
+            if (Length < _array.Length / 2 && Length > 0)
             {
                 DecreaseLenghth();
             }
@@ -124,10 +128,15 @@ namespace DataStructure
 
         public void DeleteFirst(int quantity=1)
         {
+            if (0 > Length - quantity)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
             ShiftToLeft(0, quantity);
             Length -= quantity;
 
-            if (Length < _array.Length / 2)
+            if (Length < _array.Length / 2 && Length > 0)
             {
                 DecreaseLenghth();
             }
@@ -354,7 +363,7 @@ namespace DataStructure
             }
 
             int[] newArray = new int[newLenght];
-            Array.Copy(_array, newArray, _array.Length);
+            Array.Copy(_array, newArray, Length);
 
             _array = newArray;
         }
@@ -387,7 +396,7 @@ namespace DataStructure
         }
         private void ShiftToLeft(int from, int quantity=1)
         {
-            for (int i = from; i < Length-1; i++)
+            for (int i = from; i < Length-quantity; i++)
             {
                 _array[i] = _array[i+quantity];
             }
