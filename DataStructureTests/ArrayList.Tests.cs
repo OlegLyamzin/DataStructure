@@ -421,23 +421,47 @@ namespace DataStructureTests
         {
             ArrayList actualArray = new ArrayList(array);
 
-            Assert.Throws<Exception>(() => actualArray.GetMaximum());
+            Assert.Throws<Exception>(() => actualArray.GetMinimum());
         }
 
-        [TestCase("FirstActualMock", 4)]
-        public void GetIndexOfMaximumTest(string nArrayListMock, int expected)
+        [TestCase(new int[] { 1, 2, 3, 4, 5 }, 4)]
+        [TestCase(new int[] { 0 }, 0)]
+        [TestCase(new int[] { 1, 43, 4, 5, 2, 1 }, 1)]
+        public void GetIndexOfMaximumTest(int[] array, int expected)
         {
-            ArrayList actualArray = GetActualArrayListMock(nArrayListMock);
+            ArrayList actualArray = new ArrayList(array);
+
             int actual = actualArray.GetIndexOfMaximum();
+
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase("FirstActualMock", 0)]
-        public void GetIndexOfMinimumTest(string nArrayListMock, int expected)
+        [TestCase(new int[] { })]
+        public void GetIndexOfMaximumTest(int[] array)
         {
-            ArrayList actualArray = GetActualArrayListMock(nArrayListMock);
+            ArrayList actualArray = new ArrayList(array);
+
+            Assert.Throws<Exception>(() => actualArray.GetIndexOfMaximum());
+        }
+
+        [TestCase(new int[] { 1, 2, 3, 4, 5 }, 0)]
+        [TestCase(new int[] { 0 }, 0)]
+        [TestCase(new int[] { 2, 43, 4, 0, 2, 1 }, 3)]
+        public void GetIndexOfMinimumTest(int[] array, int expected)
+        {
+            ArrayList actualArray = new ArrayList(array);
+
             int actual = actualArray.GetIndexOfMinimum();
+
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { })]
+        public void GetIndexOfMinimumTest(int[] array)
+        {
+            ArrayList actualArray = new ArrayList(array);
+
+            Assert.Throws<Exception>(() => actualArray.GetIndexOfMinimum());
         }
 
         [TestCase("SecondActualMock", "SecondExpectedMockForSort")]

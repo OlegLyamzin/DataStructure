@@ -278,6 +278,10 @@ namespace DataStructure
 
         public int GetIndexOfMinimum()
         {
+            if (Length == 0)
+            {
+                throw new Exception("List is empty");
+            }
             int minIndex = 0;
             for (int i = 1; i < Length; i++)
             {
@@ -292,6 +296,10 @@ namespace DataStructure
 
         public int GetIndexOfMaximum()
         {
+            if (Length == 0)
+            {
+                throw new Exception("List is empty");
+            }
             int maxIndex = 0;
             for (int i = 1; i < Length; i++)
             {
