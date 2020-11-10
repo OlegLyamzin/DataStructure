@@ -175,6 +175,8 @@ namespace DataStructureTests
 
         [TestCase(1, new int[] { })]
         [TestCase(4, new int[] { 1, 2, 3 })]
+        [TestCase(-1, new int[] { 1, 2, 3 })]
+        [TestCase(-7, new int[] { 1, 2, 3 })]
         public void DeleteFirstNegativeTest(int quantity, int[] array)
         {
             ArrayList actual = new ArrayList(array);
