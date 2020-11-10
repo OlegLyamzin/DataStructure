@@ -10,6 +10,25 @@ namespace DataStructure
 
         private int[] _array;
 
+        public int this[int index] {
+            get
+            {
+                if(index < 0 || index >= Length)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+                return _array[index];
+            }
+            set
+            {
+                if (index < 0 || index >= Length)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+                _array[index] = value;
+            }
+        }
+
         public ArrayList()
         {
             _array = new int[9];

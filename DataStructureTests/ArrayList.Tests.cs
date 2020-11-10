@@ -7,6 +7,31 @@ namespace DataStructureTests
 {
     public class Tests
     {
+        [TestCase(3, new int[] { 1, 2, 3, 4, 5 }, 4)]
+        [TestCase(0, new int[] {0 }, 0)]
+        [TestCase(5, new int[] { 1,4,5,3,7,4 }, 4)]
+        public void GetIndexatorTest(int index, int[] array, int expected)
+        {
+            ArrayList actualList = new ArrayList(array);
+            int actual;
+            
+            actual = actualList[index];
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(3, 10, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 10, 5 })]
+        [TestCase(0, 1, new int[] { 0 }, new int[] { 1 })]
+        [TestCase(5, -1, new int[] { 1, 43, 4, 5, 2, 1 }, new int[] { 1, 43, 4, 5, 2, -1 })]
+        public void SetIndexatorTest(int index, int value, int[] array, int[] expectedArray)
+        {
+            ArrayList actual = new ArrayList(array);
+            ArrayList expected = new ArrayList(expectedArray);
+            
+            actual[index] = value;
+
+            Assert.AreEqual(expected, actual);
+        }
 
         [TestCase(6, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5, 6 })]
         [TestCase(0, new int[] { }, new int[] { 0 })]
