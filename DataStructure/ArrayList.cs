@@ -35,6 +35,13 @@ namespace DataStructure
             Length = 0;
         }
 
+        public ArrayList(int value)
+        {
+            _array = new int[9];
+            _array[0] = value;
+            Length = 1;
+        }
+
         public ArrayList(int[] array)
         {
             _array = new int[(int)(array.Length * 1.33 + 1)];
