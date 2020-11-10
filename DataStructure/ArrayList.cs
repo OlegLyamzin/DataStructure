@@ -152,6 +152,10 @@ namespace DataStructure
 
         public void DeleteByIndex(int index, int quantity = 1)
         {
+            if (quantity < 0)
+            {
+                throw new ArgumentOutOfRangeException("Parameter quantity can't be negative");
+            }
             if (index >= Length ||
                 index < 0 ||
                 index + quantity > Length
@@ -163,7 +167,7 @@ namespace DataStructure
             ShiftToLeft(index, quantity);
             Length -= quantity;
 
-            if (Length < _array.Length / 2)
+            if (Length < _array.Length / 2 && Length > 0)
             {
                 DecreaseLenghth();
             }
