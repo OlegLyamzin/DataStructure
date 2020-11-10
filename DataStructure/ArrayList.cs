@@ -351,7 +351,7 @@ namespace DataStructure
 
             if(i == Length)
             {
-                throw new Exception("Value is not exist");
+                throw new ArgumentException("Value is not exist");
             }
 
             DeleteByIndex(i);
@@ -362,16 +362,17 @@ namespace DataStructure
             bool isExist = false;
             for (int i = 0; i < Length; i++)
             {
-                if(_array[i] == value)
+                if(Length != 0 &&_array[i] == value)
                 {
                     DeleteByIndex(i);
                     isExist = true;
+                    i--;
                 }
             }
 
             if (!isExist)
             {
-                throw new Exception("Value is not exist");
+                throw new ArgumentException("Value is not exist");
             }
 
         }
@@ -406,7 +407,7 @@ namespace DataStructure
             int newLenght = _array.Length;
             while (newLenght / 2 >= Length)
             {
-                newLenght -= (int)(newLenght * 0.33);
+                newLenght = newLenght * 2 / 3;
             }
 
             int[] newArray = new int[newLenght];
