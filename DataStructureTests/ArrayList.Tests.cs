@@ -327,29 +327,23 @@ namespace DataStructureTests
            
         }
 
-        [TestCase("FirstActualMock", 3, 2)]
-        public void GetIndexByValueTest(string nArrayListMock, int value, int expected)
+        [TestCase(4, new int[] { 1, 2, 3, 4, 5 }, 3)]
+        [TestCase(5, new int[] { 1, 2, 3, 4, 5, 5, 5, 5 }, 4)]
+        [TestCase(1, new int[] { 1 }, 0)]
+        public void GetIndexByValueTest(int value, int[] array, int expected)
         {
-            ArrayList actualArray = GetActualArrayListMock(nArrayListMock);
+            ArrayList actualArray = new ArrayList(array);
             int actual = actualArray.GetIndexByValue(value);
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase("FirstActualMock", 6)]
-        [TestCase("FirstActualMock", 0)]
-        public void GetIndexByValueNegativeTest(string nArrayListMock, int value)
+        [TestCase(6, new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(-1, new int[] { 1, 2, 3, 4, 5, 5, 5, 5 })]
+        [TestCase(0, new int[] {  })]
+        public void GetIndexByValueNegativeTest(int value, int[] array)
         {
-            ArrayList actual = GetActualArrayListMock(nArrayListMock);
-            try
-            {
-
-                actual.GetIndexByValue(value);
-            }
-            catch
-            {
-                Assert.Pass();
-            }
-            Assert.Fail();
+            ArrayList actualArray = new ArrayList(array);
+            Assert.Throws<ArgumentException>(() => actualArray.GetIndexByValue(value));
         }
 
         [TestCase(8, 2, "FirstActualMock", "FirstExpectedMockForSetValueByIndex")]

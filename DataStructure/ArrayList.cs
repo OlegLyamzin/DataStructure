@@ -217,7 +217,7 @@ namespace DataStructure
                     return i;
                 }
             }
-            throw new Exception("Value is not exist");
+            throw new ArgumentException("Value is not exist");
         }
 
         public void SetValueByIndex(int value, int index)
