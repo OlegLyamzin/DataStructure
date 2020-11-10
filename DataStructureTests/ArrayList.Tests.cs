@@ -492,56 +492,58 @@ namespace DataStructureTests
 
         }
 
-        [TestCase(3, "FirstActualMock", "FirstExpectedMockForDeleteByValue")]
-        [TestCase(23, "SecondActualMock", "SecondExpectedMockForDeleteByValue")]
-        public void DeleteByValueTest(int value, string nArrayListMock, string nExpectedMock)
+        [TestCase(1, new int[] { 1, 2, 3, 4, 5 }, new int[] { 2, 3, 4, 5 })]
+        [TestCase(5, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4 })]
+        [TestCase(0, new int[] { 0 }, new int[] { })]
+        [TestCase(1, new int[] { 1, -4, 3, 2, 1, 65 }, new int[] { -4, 3,2, 1, 65 })]
+        public void DeleteByValueTest(int value, int[] array, int[] expectedArray)
         {
-            ArrayList actual = GetActualArrayListMock(nArrayListMock);
-            ArrayList expected = GetExpectedArrayListMock(nExpectedMock);
+            ArrayList actual = new ArrayList(array);
+            ArrayList expected = new ArrayList(expectedArray);
+
             actual.DeleteByValue(value);
+
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase(6, "FirstActualMock")]
-        [TestCase(-1, "FirstActualMock")]
-        public void DeleteByValueNegativeTest(int value, string nArrayListMock)
+        [TestCase(6, new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(432, new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(1, new int[] { 0 })]
+        [TestCase(1, new int[] {  })]
+        [TestCase(5, new int[] { 1, -4, 3, 2, 1, 65 })]
+        public void DeleteByValueNegativeTest(int value, int[] array)
         {
-            try
-            {
-                ArrayList actual = GetActualArrayListMock(nArrayListMock);
-                actual.DeleteByValue(value);
-            }
-            catch
-            {
-                Assert.Pass();
-            }
-            Assert.Fail();
+            ArrayList actual = new ArrayList(array);
+
+            Assert.Throws<ArgumentException>(()=>actual.DeleteByValue(value));
+            
         }
 
-        [TestCase(3, "FirstActualMock", "FirstExpectedMockForDeleteByValueAll")]
-        [TestCase(23, "SecondActualMock", "SecondExpectedMockForDeleteByValueAll")]
-        public void DeleteByValueAllTest(int value, string nArrayListMock, string nExpectedMock)
+        [TestCase(3, new int[] { 1, 2, 3, 4,3, 5 }, new int[] { 1,2, 4, 5 })]
+        [TestCase(5, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4 })]
+        [TestCase(0, new int[] { 0,0,0,0,0,0,0,0,0 }, new int[] { })]
+        [TestCase(1, new int[] { 1,1,1,1,1,1,1,1,1,1,1 }, new int[] { })]
+        [TestCase(1, new int[] { 1, -4, 3, 2, 1, 65 }, new int[] { -4, 3, 2, 65 })]
+        public void DeleteByValueAllTest(int value, int[] array, int[] expectedArray)
         {
-            ArrayList actual = GetActualArrayListMock(nArrayListMock);
-            ArrayList expected = GetExpectedArrayListMock(nExpectedMock);
+            ArrayList actual = new ArrayList(array);
+            ArrayList expected = new ArrayList(expectedArray);
+
             actual.DeleteByValueAll(value);
+
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase(6, "FirstActualMock")]
-        [TestCase(-1, "FirstActualMock")]
-        public void DeleteByValueAllNegativeTest(int value, string nArrayListMock)
+        [TestCase(6, new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(432, new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(1, new int[] { 0 })]
+        [TestCase(1, new int[] { })]
+        [TestCase(5, new int[] { 1, -4, 3, 2, })]
+        public void DeleteByValueAllNegativeTest(int value, int[] array)
         {
-            try
-            {
-                ArrayList actual = GetActualArrayListMock(nArrayListMock);
-                actual.DeleteByValueAll(value);
-            }
-            catch
-            {
-                Assert.Pass();
-            }
-            Assert.Fail();
+            ArrayList actual = new ArrayList(array);
+
+            Assert.Throws<ArgumentException>(() => actual.DeleteByValueAll(value));
         }
 
         [TestCase(new int[] { 6, 7, 8 }, "FirstActualMock", "FirstExpectedMockForAddMassive")]
