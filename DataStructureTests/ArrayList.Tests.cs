@@ -478,14 +478,18 @@ namespace DataStructureTests
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase("FirstActualMock", "FirstExpectedMockForSortInversion")]
-        [TestCase("SecondActualMock", "SecondExpectedMockForSortInversion")]
-        public void SortInversionTest(string nArrayListMock, string nExpectedMock)
+        [TestCase(new int[] { 1, 2, 3, 4, 5 }, new int[] { 5,4,3,2,1})]
+        [TestCase(new int[] { 0 }, new int[] { 0 })]
+        [TestCase(new int[] { }, new int[] { })]
+        [TestCase(new int[] { 1, 43, 4, 5, 2, 1 }, new int[] { 43,5,4,2,1,1})]
+        public void SortInversionTest(int[] array, int[] expectedArray)
         {
-            ArrayList actual = GetActualArrayListMock(nArrayListMock);
-            ArrayList expected = GetExpectedArrayListMock(nExpectedMock);
+            ArrayList actual = new ArrayList(array);
+            ArrayList expected = new ArrayList(expectedArray);
+
             actual.SortInversion();
             Assert.AreEqual(expected, actual);
+
         }
 
         [TestCase(3, "FirstActualMock", "FirstExpectedMockForDeleteByValue")]
