@@ -8,8 +8,8 @@ namespace DataStructureTests
     public class Tests
     {
         [TestCase(3, new int[] { 1, 2, 3, 4, 5 }, 4)]
-        [TestCase(0, new int[] {0 }, 0)]
-        [TestCase(5, new int[] { 1,4,5,3,7,4 }, 4)]
+        [TestCase(0, new int[] { 0 }, 0)]
+        [TestCase(5, new int[] { 1, 4, 5, 3, 7, 4 }, 4)]
         public void GetIndexatorTest(int index, int[] array, int expected)
         {
             ArrayList actualList = new ArrayList(array);
@@ -18,6 +18,18 @@ namespace DataStructureTests
             actual = actualList[index];
 
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(-1, new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(1, new int[] { 0 })]
+        [TestCase(43, new int[] { 1, 4, 5, 3, 7, 4 })]
+        [TestCase(0, new int[] { })]
+        public void GetIndexatorNegativeTest(int index, int[] array)
+        {
+            ArrayList actualList = new ArrayList(array);
+            int actual;
+
+            Assert.Throws<IndexOutOfRangeException>(()=>actual = actualList[index]);
         }
 
         [TestCase(3, 10, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 10, 5 })]
@@ -31,6 +43,17 @@ namespace DataStructureTests
             actual[index] = value;
 
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(-1,0, new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(1,0, new int[] { 0 })]
+        [TestCase(43,0, new int[] { 1, 4, 5, 3, 7, 4 })]
+        [TestCase(0,0, new int[] { })]
+        public void SetIndexatorNegativeTest(int index,int value, int[] array)
+        {
+            ArrayList actual = new ArrayList(array);
+            
+            Assert.Throws<IndexOutOfRangeException>(() => actual[index] = value);
         }
 
         [TestCase(6, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5, 6 })]
@@ -268,38 +291,40 @@ namespace DataStructureTests
             }
         }
 
-        
-        [TestCase("FirstActualMock", 5)]
-        public void GetLengthTest(string nArrayListMock, int expected)
+
+        [TestCase(new int[] { 1, 2, 3, 4, 5 }, 5)]
+        [TestCase(new int[] { 1 }, 1)]
+        [TestCase(new int[] { }, 0)]
+        public void GetLengthTest(int[] array, int expected)
         {
-            ArrayList actualArray = GetActualArrayListMock(nArrayListMock);
+            ArrayList actualArray = new ArrayList(array);
             int actual = actualArray.GetLength();
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase("FirstActualMock", 3, 4)]
-        public void GetValueByIndexTest(string nArrayListMock, int index, int expected)
+        [TestCase(3, new int[] { 1, 2, 3, 4, 5 }, 4)]
+        [TestCase(0, new int[] { 0 }, 0)]
+        [TestCase(5, new int[] { 1, 4, 5, 3, 7, 4 }, 4)]
+        public void GetValueByIndexTest(int index, int[] array, int expected)
         {
-            ArrayList actualArray = GetActualArrayListMock(nArrayListMock);
+            ArrayList actualArray = new ArrayList(array);
+
             int actual = actualArray.GetValueByIndex(index);
+
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase("FirstActualMock", 5)]
-        [TestCase("FirstActualMock", -1)]
-        public void GetValueByIndexNegativeTest(string nArrayListMock, int index)
+        [TestCase(-1, new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(1, new int[] { 0 })]
+        [TestCase(43, new int[] { 1, 4, 5, 3, 7, 4 })]
+        [TestCase(0, new int[] { })]
+        public void GetValueByIndexNegativeTest(int index, int[] array)
         {
-            ArrayList actual = GetActualArrayListMock(nArrayListMock);
-            try
-            {
+            ArrayList actualArray = new ArrayList(array);
+            int actual;
 
-                actual.GetValueByIndex(index);
-            }
-            catch
-            {
-                Assert.Pass();
-            }
-            Assert.Fail();
+            Assert.Throws<IndexOutOfRangeException>(() => actual = actualArray.GetValueByIndex(index));
+           
         }
 
         [TestCase("FirstActualMock", 3, 2)]
