@@ -8,31 +8,108 @@ namespace DataStructureTests
     public class Tests
     {
         
-        [TestCase(6,"FirstActualMock", "FirstExpectedMockForAdd")]
-        public void AddTest(int value, string nArrayListMock, string nExpectedMock)
+        [TestCase(6, new int[] { 1,2,3,4,5}, new int[] { 1, 2, 3, 4, 5, 6 })]
+        [TestCase(0, new int[] {  }, new int[] {  0 })]
+        [TestCase(-4, new int[] { 1}, new int[] { 1, -4 })]
+        public void AddTest(int value, int[] array, int[] expectedArray)
         {
-            ArrayList actual = GetActualArrayListMock(nArrayListMock);
-            ArrayList expected = GetExpectedArrayListMock(nExpectedMock);
+            ArrayList actual = new ArrayList(array);
+            ArrayList expected = new ArrayList(expectedArray);
+
             actual.Add(value);
+
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase(6, "FirstActualMock", "FirstExpectedMockForAddFirst")]
-        public void AddFirstTest(int value, string nArrayListMock, string nExpectedMock)
+        [TestCase(6,10, new int[] { }, new int[] { 6,6,6,6,6,6,6,6,6,6})]
+        [TestCase(0,5, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5, 0,0,0,0,0 })]
+        [TestCase(-4,3, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5, -4,-4,-4 })]
+        public void AddFewElementsTest(int value, int quantity, int[] array, int[] expectedArray)
         {
-            ArrayList actual = GetActualArrayListMock(nArrayListMock);
-            ArrayList expected = GetExpectedArrayListMock(nExpectedMock);
+            ArrayList actual = new ArrayList(array);
+            ArrayList expected = new ArrayList(expectedArray);
+
+            for (int i = 0; i < quantity; i++)
+            {
+            actual.Add(value);
+            }
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(6, new int[] { 1, 2, 3, 4, 5 }, new int[] {6, 1, 2, 3, 4, 5 })]
+        [TestCase(0, new int[] { }, new int[] { 0 })]
+        [TestCase(-4, new int[] { 1 }, new int[] { -4, 1 })]
+        public void AddFirstTest(int value, int[] array, int[] expectedArray)
+        {
+            ArrayList actual = new ArrayList(array);
+            ArrayList expected = new ArrayList(expectedArray);
+
             actual.AddFirst(value);
+
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase(6,3, "FirstActualMock", "FirstExpectedMockForAddByIndex")]
-        public void AddByIndexTest(int value,int index, string nArrayListMock, string nExpectedMock)
+        [TestCase(6, 10, new int[] { }, new int[] { 6, 6, 6, 6, 6, 6, 6, 6, 6, 6 })]
+        [TestCase(0, 5, new int[] { 1, 2, 3, 4, 5 }, new int[] { 0, 0, 0, 0, 0 , 1, 2, 3, 4, 5})]
+        [TestCase(-4, 3, new int[] { 1, 2, 3, 4, 5 }, new int[] { -4, -4, -4 , 1, 2, 3, 4, 5})]
+        public void AddFirstFewElementsTest(int value, int quantity, int[] array, int[] expectedArray)
         {
-            ArrayList actual = GetActualArrayListMock(nArrayListMock);
-            ArrayList expected = GetExpectedArrayListMock(nExpectedMock);
-            actual.AddByIndex(value,index);
+            ArrayList actual = new ArrayList(array);
+            ArrayList expected = new ArrayList(expectedArray);
+
+            for(int i = 0; i < quantity; i++)
+            {
+            actual.AddFirst(value);
+            }
+
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(6, 3, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3,6, 4, 5 })]
+        [TestCase(0, 0, new int[] { }, new int[] { 0 })]
+        [TestCase(-4, 1, new int[] { 1 }, new int[] {  1,-4 })]       
+        public void AddByIndexTest(int value,int index, int[] array, int[] expectedArray)
+        {
+            ArrayList actual = new ArrayList(array);
+            ArrayList expected = new ArrayList(expectedArray);
+
+            actual.AddByIndex(value,index);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(6, 10, 0, new int[] { }, new int[] { 6, 6, 6, 6, 6, 6, 6, 6, 6, 6 })]
+        [TestCase(0, 5, 3, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 0, 0, 0, 0, 0, 4, 5 })]
+        [TestCase(-4, 3, 5, new int[] { 1, 2, 3, 4, 5 }, new int[] {  1, 2, 3, 4, 5, -4, -4, -4, })]
+        public void AddByIndexFewElementsTest(int value, int quantity, int index, int[] array, int[] expectedArray)
+        {
+            ArrayList actual = new ArrayList(array);
+            ArrayList expected = new ArrayList(expectedArray);
+
+            for(int i = 0; i < quantity; i++)
+            {
+            actual.AddByIndex(value, index);
+            }
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(0, 6, new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(0, -1, new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(0, 243, new int[] { 1, 2, 3, 4, 5 })]
+        public void AddByIndexNegativeTest(int value, int index, int[] array)
+        {
+            ArrayList actual = new ArrayList(array);
+            try
+            {
+                actual.AddByIndex(value, index);
+            }
+            catch
+            {
+                Assert.Pass();
+            }
+            Assert.Fail();
         }
 
         [TestCase("FirstActualMock", "FirstExpectedMockForDeleteEnd")]
@@ -78,21 +155,6 @@ namespace DataStructureTests
             Assert.Fail();
         }
 
-        [TestCase(5, "FirstActualMock")]
-        [TestCase(-1, "FirstActualMock")]
-        public void AddByIndexNegativeTest(int index, string nArrayListMock)
-        {
-            try
-            {
-                ArrayList actual = GetActualArrayListMock(nArrayListMock);
-                actual.AddByIndex(6,index);
-            }
-            catch
-            {
-                Assert.Pass();
-            }
-            Assert.Fail();
-        }
 
         [TestCase("FirstActualMock", 5)]
         public void GetLengthTest(string nArrayListMock, int expected)
