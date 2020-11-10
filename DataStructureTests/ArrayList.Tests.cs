@@ -346,56 +346,82 @@ namespace DataStructureTests
             Assert.Throws<ArgumentException>(() => actualArray.GetIndexByValue(value));
         }
 
-        [TestCase(8, 2, "FirstActualMock", "FirstExpectedMockForSetValueByIndex")]
-        public void SetValueByIndexTest(int value, int index, string nArrayListMock, string nExpectedMock)
+        [TestCase(3, 10, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 10, 5 })]
+        [TestCase(0, 1, new int[] { 0 }, new int[] { 1 })]
+        [TestCase(5, -1, new int[] { 1, 43, 4, 5, 2, 1 }, new int[] { 1, 43, 4, 5, 2, -1 })]
+        public void SetValueByIndexTest(int index, int value, int[] array, int[] expectedArray)
         {
+            ArrayList actual = new ArrayList(array);
+            ArrayList expected = new ArrayList(expectedArray);
 
-            ArrayList actual = GetActualArrayListMock(nArrayListMock);
-            ArrayList expected = GetExpectedArrayListMock(nExpectedMock);
-            actual.SetValueByIndex(value, index);
+            actual.SetValueByIndex(index, value);
+
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase("FirstActualMock", 5)]
-        [TestCase("FirstActualMock", -1)]
-        public void SetValueByIndexNegativeTest(string nArrayListMock, int index)
+        [TestCase(-1, 0, new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(1, 0, new int[] { 0 })]
+        [TestCase(43, 0, new int[] { 1, 4, 5, 3, 7, 4 })]
+        [TestCase(0, 0, new int[] { })]
+        public void SetValueByIndexNegativeTest(int index, int value, int[] array)
         {
-            ArrayList actual = GetActualArrayListMock(nArrayListMock);
-            try
-            {
+            ArrayList actual = new ArrayList(array);
 
-                actual.SetValueByIndex(3, index);
-            }
-            catch
-            {
-                Assert.Pass();
-            }
-            Assert.Fail();
+            Assert.Throws<IndexOutOfRangeException>(() => actual.SetValueByIndex(index,value));
         }
 
-        [TestCase("FirstActualMock", "FirstExpectedMockForReverse")]
-        public void ReverseTest(string nArrayListMock, string nExpectedMock)
+        [TestCase(new int[] { 1, 2, 3, 4, 5 }, new int[] { 5,4,3,2,1 })]
+        [TestCase(new int[] { 0 }, new int[] { 0})]
+        [TestCase(new int[] {  }, new int[] {  })]
+        [TestCase(new int[] { 1, 43, 4, 5, 2, 1 }, new int[] { 1,2,5,4,43,1 })]
+        public void ReverseTest(int[] array, int[] expectedArray)
         {
-            ArrayList actual = GetActualArrayListMock(nArrayListMock);
-            ArrayList expected = GetExpectedArrayListMock(nExpectedMock);
+            ArrayList actual = new ArrayList(array);
+            ArrayList expected = new ArrayList(expectedArray);
+
             actual.Reverse();
+
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase("FirstActualMock", 5)]
-        public void GetMaximumTest(string nArrayListMock, int expected)
+        [TestCase(new int[] { 1, 2, 3, 4, 5 }, 5)]
+        [TestCase(new int[] { 0 }, 0)]        
+        [TestCase(new int[] { 1, 43, 4, 5, 2, 1 }, 43)]
+        public void GetMaximumTest(int[] array, int expected)
         {
-            ArrayList actualArray = GetActualArrayListMock(nArrayListMock);
+            ArrayList actualArray = new ArrayList(array);
+            
             int actual = actualArray.GetMaximum();
+
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase("FirstActualMock", 1)]
-        public void GetMinimumTest(string nArrayListMock, int expected)
+        [TestCase(new int[] { })]
+        public void GetMaximumNegativeTest(int[] array)
         {
-            ArrayList actualArray = GetActualArrayListMock(nArrayListMock);
+            ArrayList actualArray = new ArrayList(array);
+
+            Assert.Throws<Exception>(() => actualArray.GetMaximum());
+        }
+
+        [TestCase(new int[] { 1, 2, 3, 4, 5 }, 1)]
+        [TestCase(new int[] { 0 }, 0)]
+        [TestCase(new int[] { 1, 43, 4, 5, 2, 1 }, 1)]
+        public void GetMinimumTest(int[] array, int expected)
+        {
+            ArrayList actualArray = new ArrayList(array);
+
             int actual = actualArray.GetMinimum();
+
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { })]
+        public void GetMinimumNegativeTest(int[] array)
+        {
+            ArrayList actualArray = new ArrayList(array);
+
+            Assert.Throws<Exception>(() => actualArray.GetMaximum());
         }
 
         [TestCase("FirstActualMock", 4)]

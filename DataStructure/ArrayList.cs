@@ -220,7 +220,7 @@ namespace DataStructure
             throw new ArgumentException("Value is not exist");
         }
 
-        public void SetValueByIndex(int value, int index)
+        public void SetValueByIndex(int index, int value)
         {
             if (index >= Length || index < 0)
             {
@@ -242,6 +242,10 @@ namespace DataStructure
 
         public int GetMaximum()
         {
+            if(Length == 0)
+            {
+                throw new Exception("List is empty");
+            }
             int max = _array[0];
             for (int i = 1; i < Length; i++)
             {
@@ -256,6 +260,10 @@ namespace DataStructure
 
         public int GetMinimum()
         {
+            if (Length == 0)
+            {
+                throw new Exception("List is empty");
+            }
             int min = _array[0];
             for (int i = 1; i < Length; i++)
             {
