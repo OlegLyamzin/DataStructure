@@ -113,7 +113,7 @@ namespace DataStructure
 
         public void AddByIndex(int[] values, int index)
         {
-            if (index >= Length || index < 0)
+            if (index > Length || index < 0)
             {
                 throw new IndexOutOfRangeException();
             }
