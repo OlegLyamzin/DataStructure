@@ -464,12 +464,17 @@ namespace DataStructureTests
             Assert.Throws<Exception>(() => actualArray.GetIndexOfMinimum());
         }
 
-        [TestCase("SecondActualMock", "SecondExpectedMockForSort")]
-        public void SortTest(string nArrayListMock, string nExpectedMock)
+        [TestCase(new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(new int[] { 0 }, new int[] { 0 })]
+        [TestCase(new int[] { }, new int[] { })]
+        [TestCase(new int[] { 1, 43, 4, 5, 2, 1 }, new int[] { 1, 1, 2, 4, 5, 43 })]
+        public void SortTest(int[] array, int[] expectedArray)
         {
-            ArrayList actual = GetActualArrayListMock(nArrayListMock);
-            ArrayList expected = GetExpectedArrayListMock(nExpectedMock);
+            ArrayList actual = new ArrayList(array);
+            ArrayList expected = new ArrayList(expectedArray);
+
             actual.Sort();
+
             Assert.AreEqual(expected, actual);
         }
 
