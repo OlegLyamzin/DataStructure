@@ -101,7 +101,30 @@ namespace DataStructure.LinkedLists
 
         public void AddByIndex(int index, int value)
         {
+            if(index <0 || index > Length)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            if (Length > 0)
+            {
+                Node current = _root;
 
+                for (int i = 0; i < index - 1; i++)
+                {
+                    current = current.Next;
+                }
+
+                Node tmp = current.Next;
+                current.Next = new Node(value);
+                current.Next.Next = tmp;
+                Length++;
+                
+            }
+            else
+            {
+                _root = new Node(value);
+                Length++;
+            }
         }
 
         public override string ToString()
