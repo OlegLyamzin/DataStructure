@@ -154,5 +154,49 @@ namespace DataStructure.Tests
 
         }
 
+        [TestCase(new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4 })]
+        [TestCase(new int[] { 0 }, new int[] { })]
+        [TestCase(new int[] { 1, -4 }, new int[] { 1 })]
+        public void DeleteEndTest(int[] array, int[] expectedArray)
+        {
+            LinkedList actual = new LinkedList(array);
+            LinkedList expected = new LinkedList(expectedArray);
+
+            actual.DeleteEnd();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(3, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2 })]
+        [TestCase(3, new int[] { 0, 1, 2 }, new int[] { })]
+        [TestCase(0, new int[] { 1, -4 }, new int[] { 1, -4 })]
+        public void DeleteEndFewElementsTest(int quantity, int[] array, int[] expectedArray)
+        {
+            LinkedList actual = new LinkedList(array);
+            LinkedList expected = new LinkedList(expectedArray);
+
+            actual.DeleteEnd(quantity);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(1, new int[] { })]
+        [TestCase(4, new int[] { 1, 2, 3 })]
+        [TestCase(-1, new int[] { 1, 2, 3 })]
+        [TestCase(-7, new int[] { 1, 2, 3 })]
+        public void DeleteEndNegativeTest(int quantity, int[] array)
+        {
+            LinkedList actual = new LinkedList(array);
+
+            if (quantity >= 0)
+            {
+                Assert.Throws<IndexOutOfRangeException>(() => actual.DeleteEnd(quantity));
+            }
+            else if (quantity < 0)
+            {
+                Assert.Throws<ArgumentOutOfRangeException>(() => actual.DeleteEnd(quantity));
+            }
+        }
+
     }
 }
