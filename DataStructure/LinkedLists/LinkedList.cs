@@ -127,6 +127,37 @@ namespace DataStructure.LinkedLists
             }
         }
 
+        public void DeleteEnd(int quantity=1)
+        {
+            if (Length -quantity < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            if (quantity < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            if (Length > 1)
+            {
+                Node current = _root;
+
+                for (int i = 1; i < Length - quantity; i++)
+                {
+                    current = current.Next;
+                }
+
+
+                current.Next = null;
+
+                Length -= quantity;
+            }
+            else
+            {
+                _root = null;
+                Length -= quantity;
+            }
+        }
+
         public override string ToString()
         {
             string str = "";
@@ -148,19 +179,21 @@ namespace DataStructure.LinkedLists
             {
                 return false;
             }
-            Node tmp1 = _root;
-            Node tmp2 = linkedList._root;
-
-            while (tmp1 != null || tmp2 != null)
+            if (Length != 0)
             {
-                if(tmp1.Value != tmp2.Value)
-                {
-                    return false;
-                }
-                tmp1 = tmp1.Next;
-                tmp2 = tmp2.Next;
-            }
+                Node tmp1 = _root;
+                Node tmp2 = linkedList._root;
 
+                while (tmp1 != null || tmp2 != null)
+                {
+                    if (tmp1.Value != tmp2.Value)
+                    {
+                        return false;
+                    }
+                    tmp1 = tmp1.Next;
+                    tmp2 = tmp2.Next;
+                }
+            }
             return true;
         }
     }
