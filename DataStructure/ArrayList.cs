@@ -251,7 +251,7 @@ namespace DataStructure
         {
             if(Length == 0)
             {
-                throw new Exception("List is empty");
+                throw new InvalidOperationException("List is empty");
             }
             int max = _array[0];
             for (int i = 1; i < Length; i++)
@@ -269,7 +269,7 @@ namespace DataStructure
         {
             if (Length == 0)
             {
-                throw new Exception("List is empty");
+                throw new InvalidOperationException("List is empty");
             }
             int min = _array[0];
             for (int i = 1; i < Length; i++)
@@ -287,7 +287,7 @@ namespace DataStructure
         {
             if (Length == 0)
             {
-                throw new Exception("List is empty");
+                throw new InvalidOperationException("List is empty");
             }
             int minIndex = 0;
             for (int i = 1; i < Length; i++)
@@ -305,7 +305,7 @@ namespace DataStructure
         {
             if (Length == 0)
             {
-                throw new Exception("List is empty");
+                throw new InvalidOperationException("List is empty");
             }
             int maxIndex = 0;
             for (int i = 1; i < Length; i++)

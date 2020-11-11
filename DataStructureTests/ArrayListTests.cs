@@ -3,9 +3,9 @@ using DataStructure;
 using System;
 using System.Runtime;
 
-namespace DataStructureTests
+namespace DataStructure.Tests
 {
-    public class Tests
+    public class ArrayListTests
     {
         [TestCase(3, new int[] { 1, 2, 3, 4, 5 }, 4)]
         [TestCase(0, new int[] { 0 }, 0)]
@@ -401,7 +401,7 @@ namespace DataStructureTests
         {
             ArrayList actualArray = new ArrayList(array);
 
-            Assert.Throws<Exception>(() => actualArray.GetMaximum());
+            Assert.Throws<InvalidOperationException>(() => actualArray.GetMaximum());
         }
 
         [TestCase(new int[] { 1, 2, 3, 4, 5 }, 1)]
@@ -421,7 +421,7 @@ namespace DataStructureTests
         {
             ArrayList actualArray = new ArrayList(array);
 
-            Assert.Throws<Exception>(() => actualArray.GetMinimum());
+            Assert.Throws<InvalidOperationException>(() => actualArray.GetMinimum());
         }
 
         [TestCase(new int[] { 1, 2, 3, 4, 5 }, 4)]
@@ -437,11 +437,11 @@ namespace DataStructureTests
         }
 
         [TestCase(new int[] { })]
-        public void GetIndexOfMaximumTest(int[] array)
+        public void GetIndexOfMaximumNegativeTest(int[] array)
         {
             ArrayList actualArray = new ArrayList(array);
 
-            Assert.Throws<Exception>(() => actualArray.GetIndexOfMaximum());
+            Assert.Throws<InvalidOperationException>(() => actualArray.GetIndexOfMaximum());
         }
 
         [TestCase(new int[] { 1, 2, 3, 4, 5 }, 0)]
@@ -457,11 +457,11 @@ namespace DataStructureTests
         }
 
         [TestCase(new int[] { })]
-        public void GetIndexOfMinimumTest(int[] array)
+        public void GetIndexOfMinimumNegativeTest(int[] array)
         {
             ArrayList actualArray = new ArrayList(array);
 
-            Assert.Throws<Exception>(() => actualArray.GetIndexOfMinimum());
+            Assert.Throws<InvalidOperationException>(() => actualArray.GetIndexOfMinimum());
         }
 
         [TestCase(new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5 })]
@@ -592,6 +592,30 @@ namespace DataStructureTests
             ArrayList actual = new ArrayList(array);
 
             Assert.Throws<IndexOutOfRangeException>(() => actual.AddByIndex(new int[] { 1, 2, 3 }, index));
+        }
+
+        [TestCase(10)]
+        [TestCase(100)]
+        [TestCase(1000)]
+        [TestCase(10000)]
+        public void IncreaseAndDecreaseTest(int quantity)
+        {
+            ArrayList actual = new ArrayList();
+            ArrayList expected = new ArrayList(new int[]{ });
+
+            for (int i = 0; i < quantity/2; i++)
+            {
+                actual.Add(i);
+                actual.AddFirst(i);
+            }
+
+            for(int i = 0; i < quantity / 2; i++)
+            {
+                actual.DeleteEnd();
+                actual.DeleteFirst();
+            }
+
+            Assert.AreEqual(expected, actual);
         }
     }
 }
