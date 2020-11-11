@@ -122,7 +122,7 @@ namespace DataStructure.Tests
             ArrayList actual = new ArrayList(array);
             ArrayList expected = new ArrayList(expectedArray);
 
-            actual.AddByIndex(value, index);
+            actual.AddByIndex(index, value);
 
             Assert.AreEqual(expected, actual);
         }
@@ -137,7 +137,7 @@ namespace DataStructure.Tests
 
             for (int i = 0; i < quantity; i++)
             {
-                actual.AddByIndex(value, index);
+                actual.AddByIndex(index, value);
             }
 
             Assert.AreEqual(expected, actual);
@@ -150,7 +150,7 @@ namespace DataStructure.Tests
         {
             ArrayList actual = new ArrayList(array);
 
-            Assert.Throws<IndexOutOfRangeException>(() => actual.AddByIndex(value, index));
+            Assert.Throws<IndexOutOfRangeException>(() => actual.AddByIndex(index, value));
 
         }
 
@@ -580,7 +580,7 @@ namespace DataStructure.Tests
         {
             ArrayList actual = new ArrayList(array);
             ArrayList expected = new ArrayList(expectedArray);
-            actual.AddByIndex(values, index);
+            actual.AddByIndex(index, values);
             Assert.AreEqual(expected, actual);
         }
 
@@ -591,7 +591,7 @@ namespace DataStructure.Tests
         {
             ArrayList actual = new ArrayList(array);
 
-            Assert.Throws<IndexOutOfRangeException>(() => actual.AddByIndex(new int[] { 1, 2, 3 }, index));
+            Assert.Throws<IndexOutOfRangeException>(() => actual.AddByIndex(index, new int[] { 1, 2, 3 }));
         }
 
         [TestCase(10)]

@@ -64,6 +64,43 @@ namespace DataStructure.LinkedLists
 
         public void Add(int value)
         {
+            if (Length > 0)
+            {
+                Node tmp = _root;
+
+                for (int i = 0; i < Length - 1; i++)
+                {
+                    tmp = tmp.Next;
+                }
+                tmp.Next = new Node(value);
+                Length++;
+            }
+            else
+            {
+                _root = new Node(value);
+                Length++;
+            }
+            
+        }
+
+        public void AddFirst(int value)
+        {
+            if(Length > 0)
+            {
+                Node tmp = _root;
+                _root = new Node(value);
+                _root.Next = tmp;
+                Length++;
+            }
+            else
+            {
+                _root = new Node(value);
+                Length++;
+            }
+        }
+
+        public void AddByIndex(int index, int value)
+        {
 
         }
 
@@ -74,10 +111,10 @@ namespace DataStructure.LinkedLists
 
             while (tmp != null)
             {
-                str += _root.Value + ";";
+                str += tmp.Value + ";";
                 tmp = tmp.Next;
             }
-            return base.ToString();
+            return str;
         }
 
         public override bool Equals(object obj)

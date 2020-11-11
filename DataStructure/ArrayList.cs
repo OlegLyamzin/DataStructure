@@ -102,7 +102,7 @@ namespace DataStructure
             }
         }
 
-        public void AddByIndex(int value, int index)
+        public void AddByIndex(int index, int value)
         {
             if(index > Length || index < 0)
             {
@@ -118,7 +118,7 @@ namespace DataStructure
             Length++;
         }
 
-        public void AddByIndex(int[] values, int index)
+        public void AddByIndex(int index,int[] values)
         {
             if (index > Length || index < 0)
             {
