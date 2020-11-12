@@ -158,6 +158,76 @@ namespace DataStructure.LinkedLists
             }
         }
 
+        public void DeleteFirst(int quantity = 1)
+        {
+            if (Length - quantity < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            if (quantity < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            if (Length > 1)
+            {
+                Node current = _root;
+
+                for (int i = 1; i <= quantity; i++)
+                {
+                    current = current.Next;
+                }
+
+                _root = current;
+
+                Length -= quantity;
+            }
+            else
+            {
+                _root = null;
+                Length -= quantity;
+            }
+
+        }
+
+        public void DeleteByIndex(int index, int quantity = 1)
+        {
+            
+            if (index >= Length||index + quantity > Length || index < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            if (quantity <= 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            if (Length > 1 && index !=0)
+            {
+                Node current = _root;
+                Node tmp = current;
+
+                for (int i = 1; i <= index + quantity; i++)
+                {
+                    if(i == index)
+                    {
+                        tmp = current;
+                    }
+                    current = current.Next;
+                }
+                
+                tmp.Next = current;
+                Length -= quantity;
+            }
+            else if (Length > 0 && index == 0)
+            {
+                DeleteFirst(quantity);
+            }
+            else
+            {
+                _root = null;
+                Length -= quantity;
+            }
+        }
+
         public override string ToString()
         {
             string str = "";
