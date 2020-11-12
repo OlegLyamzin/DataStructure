@@ -621,5 +621,29 @@ namespace DataStructure.Tests
 
             Assert.Throws<IndexOutOfRangeException>(() => actual.AddByIndex(index, new int[] { 1, 2, 3 }));
         }
+
+        [TestCase(10)]
+        [TestCase(100)]
+        [TestCase(1000)]
+        [TestCase(10000)]
+        public void IncreaseAndDecreaseTest(int quantity)
+        {
+            LinkedList actual = new LinkedList();
+            LinkedList expected = new LinkedList(new int[] { });
+
+            for (int i = 0; i < quantity / 2; i++)
+            {
+                actual.Add(i);
+                actual.AddFirst(i);
+            }
+
+            for (int i = 0; i < quantity / 2; i++)
+            {
+                actual.DeleteEnd();
+                actual.DeleteFirst();
+            }
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

@@ -62,6 +62,18 @@ namespace DataStructure.LinkedLists
             }
         }
 
+        public LinkedList(int value)
+        {
+            _root = new Node(value);
+            Length = 1;
+        }
+
+        public LinkedList()
+        {
+            _root = null;
+            Length = 0;
+        }
+
         public void Add(int value)
         {
             if (Length > 0)
