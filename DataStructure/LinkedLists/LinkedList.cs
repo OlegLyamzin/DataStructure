@@ -133,7 +133,7 @@ namespace DataStructure.LinkedLists
             {
                 throw new IndexOutOfRangeException();
             }
-            if (quantity < 0)
+            if (quantity <= 0)
             {
                 throw new ArgumentOutOfRangeException();
             }
@@ -164,7 +164,7 @@ namespace DataStructure.LinkedLists
             {
                 throw new IndexOutOfRangeException();
             }
-            if (quantity < 0)
+            if (quantity <= 0)
             {
                 throw new ArgumentOutOfRangeException();
             }
@@ -265,6 +265,25 @@ namespace DataStructure.LinkedLists
                 }
             }
             return true;
+        }
+
+        public int GetLength()
+        {
+            return Length;
+        }
+
+        public int GetValueByIndex(int index)
+        {
+            if (index < 0 || index >= Length)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            Node tmp = _root;
+            for (int i = 1; i <= index; i++)
+            {
+                tmp = tmp.Next;
+            }
+            return tmp.Value;
         }
     }
 }

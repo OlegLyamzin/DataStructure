@@ -169,7 +169,7 @@ namespace DataStructure.Tests
 
         [TestCase(3, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2 })]
         [TestCase(3, new int[] { 0, 1, 2 }, new int[] { })]
-        [TestCase(0, new int[] { 1, -4 }, new int[] { 1, -4 })]
+        [TestCase(1, new int[] { 1, -4 }, new int[] { 1})]
         public void DeleteEndFewElementsTest(int quantity, int[] array, int[] expectedArray)
         {
             LinkedList actual = new LinkedList(array);
@@ -180,22 +180,24 @@ namespace DataStructure.Tests
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase(1, new int[] { })]
-        [TestCase(4, new int[] { 1, 2, 3 })]
-        [TestCase(-1, new int[] { 1, 2, 3 })]
-        [TestCase(-7, new int[] { 1, 2, 3 })]
-        public void DeleteEndNegativeTest(int quantity, int[] array)
+        [TestCase(1, new int[] { }, "IndexOutOfRangeException")]
+        [TestCase(4, new int[] { 1, 2, 3 }, "IndexOutOfRangeException")]
+        [TestCase(-1, new int[] { 1, 2, 3 }, "ArgumentOutOfRangeException")]
+        [TestCase(-7, new int[] { 1, 2, 3 }, "ArgumentOutOfRangeException")]
+        [TestCase(0, new int[] { 1, 2, 3 }, "ArgumentOutOfRangeException")]
+        public void DeleteEndNegativeTest(int quantity, int[] array, string exception)
         {
             LinkedList actual = new LinkedList(array);
 
-            if (quantity >= 0)
+            switch (exception)
             {
-                Assert.Throws<IndexOutOfRangeException>(() => actual.DeleteEnd(quantity));
-            }
-            else if (quantity < 0)
-            {
-                Assert.Throws<ArgumentOutOfRangeException>(() => actual.DeleteEnd(quantity));
-            }
+                case "ArgumentOutOfRangeException":
+                    Assert.Throws<ArgumentOutOfRangeException>(() => actual.DeleteEnd(quantity));
+                    break;
+                case "IndexOutOfRangeException":
+                    Assert.Throws<IndexOutOfRangeException>(() => actual.DeleteEnd(quantity));
+                    break;
+            }           
         }
 
         [TestCase(new int[] { 1, 2, 3, 4, 5 }, new int[] { 2, 3, 4, 5 })]
@@ -213,7 +215,7 @@ namespace DataStructure.Tests
 
         [TestCase(3, new int[] { 1, 2, 3, 4, 5 }, new int[] { 4, 5 })]
         [TestCase(3, new int[] { 0, 1, 2 }, new int[] { })]
-        [TestCase(0, new int[] { 1, -4 }, new int[] { 1, -4 })]
+        [TestCase(1, new int[] { 1, -4 }, new int[] { -4 })]
         public void DeleteFirstFewElementsTest(int quantity, int[] array, int[] expectedArray)
         {
             LinkedList actual = new LinkedList(array);
@@ -224,21 +226,23 @@ namespace DataStructure.Tests
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase(1, new int[] { })]
-        [TestCase(4, new int[] { 1, 2, 3 })]
-        [TestCase(-1, new int[] { 1, 2, 3 })]
-        [TestCase(-7, new int[] { 1, 2, 3 })]
-        public void DeleteFirstNegativeTest(int quantity, int[] array)
+        [TestCase(1, new int[] { }, "IndexOutOfRangeException")]
+        [TestCase(4, new int[] { 1, 2, 3 }, "IndexOutOfRangeException")]
+        [TestCase(-1, new int[] { 1, 2, 3 }, "ArgumentOutOfRangeException")]
+        [TestCase(-7, new int[] { 1, 2, 3 }, "ArgumentOutOfRangeException")]
+        [TestCase(0, new int[] { 1, 2, 3 }, "ArgumentOutOfRangeException")]
+        public void DeleteFirstNegativeTest(int quantity, int[] array, string exception)
         {
             LinkedList actual = new LinkedList(array);
 
-            if (quantity >= 0)
+            switch (exception)
             {
-                Assert.Throws<IndexOutOfRangeException>(() => actual.DeleteFirst(quantity));
-            }
-            else if (quantity < 0)
-            {
-                Assert.Throws<ArgumentOutOfRangeException>(() => actual.DeleteFirst(quantity));
+                case "ArgumentOutOfRangeException":
+                    Assert.Throws<ArgumentOutOfRangeException>(() => actual.DeleteFirst(quantity));
+                    break;
+                case "IndexOutOfRangeException":
+                    Assert.Throws<IndexOutOfRangeException>(() => actual.DeleteFirst(quantity));
+                    break;
             }
         }
 
@@ -292,6 +296,41 @@ namespace DataStructure.Tests
                     Assert.Throws<ArgumentOutOfRangeException>(() => actual.DeleteByIndex(index, quantity));
                     break;
             }            
+        }
+
+        [TestCase(new int[] { 1, 2, 3, 4, 5 }, 5)]
+        [TestCase(new int[] { 1 }, 1)]
+        [TestCase(new int[] { }, 0)]
+        public void GetLengthTest(int[] array, int expected)
+        {
+            LinkedList actualArray = new LinkedList(array);
+            int actual = actualArray.GetLength();
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(3, new int[] { 1, 2, 3, 4, 5 }, 4)]
+        [TestCase(0, new int[] { 0 }, 0)]
+        [TestCase(5, new int[] { 1, 4, 5, 3, 7, 4 }, 4)]
+        public void GetValueByIndexTest(int index, int[] array, int expected)
+        {
+            LinkedList actualArray = new LinkedList(array);
+
+            int actual = actualArray.GetValueByIndex(index);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(-1, new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(1, new int[] { 0 })]
+        [TestCase(43, new int[] { 1, 4, 5, 3, 7, 4 })]
+        [TestCase(0, new int[] { })]
+        public void GetValueByIndexNegativeTest(int index, int[] array)
+        {
+            LinkedList actualArray = new LinkedList(array);
+            int actual;
+
+            Assert.Throws<IndexOutOfRangeException>(() => actual = actualArray.GetValueByIndex(index));
+
         }
 
     }
