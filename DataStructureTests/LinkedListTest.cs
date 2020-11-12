@@ -395,9 +395,9 @@ namespace DataStructure.Tests
         [TestCase(new int[] { 1, 43, 4, 5, 2, 1 }, 43)]
         public void GetMaximumTest(int[] array, int expected)
         {
-            LinkedList actualArray = new LinkedList(array);
+            LinkedList linkedList = new LinkedList(array);
 
-            int actual = actualArray.GetMaximum();
+            int actual = linkedList.GetMaximum();
 
             Assert.AreEqual(expected, actual);
         }
@@ -405,9 +405,9 @@ namespace DataStructure.Tests
         [TestCase(new int[] { })]
         public void GetMaximumNegativeTest(int[] array)
         {
-            LinkedList actualArray = new LinkedList(array);
+            LinkedList linkedList = new LinkedList(array);
 
-            Assert.Throws<InvalidOperationException>(() => actualArray.GetMaximum());
+            Assert.Throws<InvalidOperationException>(() => linkedList.GetMaximum());
         }
 
         [TestCase(new int[] { 1, 2, 3, 4, 5 }, 1)]
@@ -415,9 +415,9 @@ namespace DataStructure.Tests
         [TestCase(new int[] { 1, 43, 4, 5, 2, 1 }, 1)]
         public void GetMinimumTest(int[] array, int expected)
         {
-            LinkedList actualArray = new LinkedList(array);
+            LinkedList linkedList = new LinkedList(array);
 
-            int actual = actualArray.GetMinimum();
+            int actual = linkedList.GetMinimum();
 
             Assert.AreEqual(expected, actual);
         }
@@ -425,9 +425,49 @@ namespace DataStructure.Tests
         [TestCase(new int[] { })]
         public void GetMinimumNegativeTest(int[] array)
         {
-            LinkedList actualArray = new LinkedList(array);
+            LinkedList linkedList = new LinkedList(array);
 
-            Assert.Throws<InvalidOperationException>(() => actualArray.GetMinimum());
+            Assert.Throws<InvalidOperationException>(() => linkedList.GetMinimum());
+        }
+
+        [TestCase(new int[] { 1, 2, 3, 4, 5 }, 4)]
+        [TestCase(new int[] { 0 }, 0)]
+        [TestCase(new int[] { 1, 43, 4, 5, 2, 1 }, 1)]
+        public void GetIndexOfMaximumTest(int[] array, int expected)
+        {
+            LinkedList linkedList = new LinkedList(array);
+
+            int actual = linkedList.GetIndexOfMaximum();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { })]
+        public void GetIndexOfMaximumNegativeTest(int[] array)
+        {
+            LinkedList linkedList = new LinkedList(array);
+
+            Assert.Throws<InvalidOperationException>(() => linkedList.GetIndexOfMaximum());
+        }
+
+        [TestCase(new int[] { 1, 2, 3, 4, 5 }, 0)]
+        [TestCase(new int[] { 0 }, 0)]
+        [TestCase(new int[] { 2, 43, 4, 0, 2, 1 }, 3)]
+        public void GetIndexOfMinimumTest(int[] array, int expected)
+        {
+            LinkedList linkedList = new LinkedList(array);
+
+            int actual = linkedList.GetIndexOfMinimum();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { })]
+        public void GetIndexOfMinimumNegativeTest(int[] array)
+        {
+            LinkedList linkedList = new LinkedList(array);
+
+            Assert.Throws<InvalidOperationException>(() => linkedList.GetIndexOfMinimum());
         }
     }
 }
