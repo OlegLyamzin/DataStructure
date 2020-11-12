@@ -389,5 +389,45 @@ namespace DataStructure.Tests
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestCase(new int[] { 1, 2, 3, 4, 5 }, 5)]
+        [TestCase(new int[] { 0 }, 0)]
+        [TestCase(new int[] { 1, 43, 4, 5, 2, 1 }, 43)]
+        public void GetMaximumTest(int[] array, int expected)
+        {
+            LinkedList actualArray = new LinkedList(array);
+
+            int actual = actualArray.GetMaximum();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { })]
+        public void GetMaximumNegativeTest(int[] array)
+        {
+            LinkedList actualArray = new LinkedList(array);
+
+            Assert.Throws<InvalidOperationException>(() => actualArray.GetMaximum());
+        }
+
+        [TestCase(new int[] { 1, 2, 3, 4, 5 }, 1)]
+        [TestCase(new int[] { 0 }, 0)]
+        [TestCase(new int[] { 1, 43, 4, 5, 2, 1 }, 1)]
+        public void GetMinimumTest(int[] array, int expected)
+        {
+            LinkedList actualArray = new LinkedList(array);
+
+            int actual = actualArray.GetMinimum();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { })]
+        public void GetMinimumNegativeTest(int[] array)
+        {
+            LinkedList actualArray = new LinkedList(array);
+
+            Assert.Throws<InvalidOperationException>(() => actualArray.GetMinimum());
+        }
     }
 }

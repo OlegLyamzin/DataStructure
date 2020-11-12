@@ -346,5 +346,49 @@ namespace DataStructure.LinkedLists
                 current.Next = null;
             }
         }
+
+        public int GetMaximum()
+        {
+            if(_root != null)
+            {
+                Node tmp = _root;
+                int maximum = _root.Value;
+                for (int i = 1; i < Length; i++)
+                {
+                    tmp = tmp.Next;
+                    if(tmp.Value > maximum)
+                    {
+                        maximum = tmp.Value;
+                    }
+                }
+                return maximum;
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
+        public int GetMinimum()
+        {
+            if (_root != null)
+            {
+                Node tmp = _root;
+                int minimum = _root.Value;
+                for (int i = 1; i < Length; i++)
+                {
+                    tmp = tmp.Next;
+                    if (tmp.Value < minimum)
+                    {
+                        minimum = tmp.Value;
+                    }
+                }
+                return minimum;
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+        }
     }
 }
