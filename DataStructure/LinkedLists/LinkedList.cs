@@ -315,44 +315,7 @@ namespace DataStructure.LinkedLists
             }
         }
 
-        public override string ToString()
-        {
-            string str = "";
-            Node tmp = _root;
-
-            while (tmp != null)
-            {
-                str += tmp.Value + ";";
-                tmp = tmp.Next;
-            }
-            return str;
-        }
-
-        public override bool Equals(object obj)
-        {
-            LinkedList linkedList = (LinkedList)obj;
-
-            if(Length != linkedList.Length)
-            {
-                return false;
-            }
-            if (Length != 0)
-            {
-                Node tmp1 = _root;
-                Node tmp2 = linkedList._root;
-
-                while (tmp1 != null || tmp2 != null)
-                {
-                    if (tmp1.Value != tmp2.Value)
-                    {
-                        return false;
-                    }
-                    tmp1 = tmp1.Next;
-                    tmp2 = tmp2.Next;
-                }
-            }
-            return true;
-        }
+        
 
         public int GetLength()
         {
@@ -664,8 +627,46 @@ namespace DataStructure.LinkedLists
             {
                 throw new ArgumentException("Value is not exist");
             }
+        }               
+
+        public override string ToString()
+        {
+            string str = "";
+            Node tmp = _root;
+
+            while (tmp != null)
+            {
+                str += tmp.Value + ";";
+                tmp = tmp.Next;
+            }
+            return str;
         }
 
+        public override bool Equals(object obj)
+        {
+            LinkedList linkedList = (LinkedList)obj;
+
+            if (Length != linkedList.Length)
+            {
+                return false;
+            }
+            if (Length != 0)
+            {
+                Node tmp1 = _root;
+                Node tmp2 = linkedList._root;
+
+                while (tmp1 != null || tmp2 != null)
+                {
+                    if (tmp1.Value != tmp2.Value)
+                    {
+                        return false;
+                    }
+                    tmp1 = tmp1.Next;
+                    tmp2 = tmp2.Next;
+                }
+            }
+            return true;
+        }
         private void AddArrayToEmptyList(int[] values)
         {
             _root = new Node(values[0]);
