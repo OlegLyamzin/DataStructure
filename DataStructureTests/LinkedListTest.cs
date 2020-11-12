@@ -469,5 +469,135 @@ namespace DataStructure.Tests
 
             Assert.Throws<InvalidOperationException>(() => linkedList.GetIndexOfMinimum());
         }
+
+        [TestCase(new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(new int[] { 0 }, new int[] { 0 })]
+        [TestCase(new int[] { }, new int[] { })]
+        [TestCase(new int[] { 1, 43, 4, 5, 2, 1 }, new int[] { 1, 1, 2, 4, 5, 43 })]
+        [TestCase(new int[] { 6,1, 43, 4, 5, 2, 1 }, new int[] { 1, 1, 2, 4, 5,6, 43 })]
+        public void SortTest(int[] array, int[] expectedArray)
+        {
+            LinkedList actual = new LinkedList(array);
+            LinkedList expected = new LinkedList(expectedArray);
+
+            actual.Sort();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void SortHugeListTest()
+        {
+            int[] array = new int[1000];
+            Random random = new Random();
+
+            for (int i = 0; i < 1000; i++)
+            {
+                array[i] = random.Next();
+            }
+            
+            LinkedList actual = new LinkedList(array);
+
+            Array.Sort(array);
+            LinkedList expected = new LinkedList(array);
+
+            actual.Sort();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { 1, 2, 3, 4, 5 }, new int[] { 5, 4, 3, 2, 1 })]
+        [TestCase(new int[] { 0 }, new int[] { 0 })]
+        [TestCase(new int[] { }, new int[] { })]
+        [TestCase(new int[] { 1, 43, 4, 5, 2, 1 }, new int[] { 43, 5, 4, 2, 1, 1 })]
+        public void SortInversionTest(int[] array, int[] expectedArray)
+        {
+            LinkedList actual = new LinkedList(array);
+            LinkedList expected = new LinkedList(expectedArray);
+
+            actual.SortInversion();
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        [TestCase(1, new int[] { 1, 2, 3, 4, 5 }, new int[] { 2, 3, 4, 5 })]
+        [TestCase(5, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4 })]
+        [TestCase(0, new int[] { 0 }, new int[] { })]
+        [TestCase(1, new int[] { 1, -4, 3, 2, 1, 65 }, new int[] { -4, 3, 2, 1, 65 })]
+        public void DeleteByValueTest(int value, int[] array, int[] expectedArray)
+        {
+            LinkedList actual = new LinkedList(array);
+            LinkedList expected = new LinkedList(expectedArray);
+
+            actual.DeleteByValue(value);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(6, new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(432, new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(1, new int[] { 0 })]
+        [TestCase(1, new int[] { })]
+        [TestCase(5, new int[] { 1, -4, 3, 2, 1, 65 })]
+        public void DeleteByValueNegativeTest(int value, int[] array)
+        {
+            LinkedList actual = new LinkedList(array);
+
+            Assert.Throws<ArgumentException>(() => actual.DeleteByValue(value));
+
+        }
+
+        [TestCase(3, new int[] { 1, 2, 3, 4, 3, 5 }, new int[] { 1, 2, 4, 5 })]
+        [TestCase(5, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4 })]
+        [TestCase(0, new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 }, new int[] { })]
+        [TestCase(1, new int[] { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, new int[] { })]
+        [TestCase(1, new int[] { 1, -4, 3, 2, 1, 65 }, new int[] { -4, 3, 2, 65 })]
+        public void DeleteByValueAllTest(int value, int[] array, int[] expectedArray)
+        {
+            LinkedList actual = new LinkedList(array);
+            LinkedList expected = new LinkedList(expectedArray);
+
+            actual.DeleteByValueAll(value);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(6, new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(432, new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(1, new int[] { 0 })]
+        [TestCase(1, new int[] { })]
+        [TestCase(5, new int[] { 1, -4, 3, 2, })]
+        public void DeleteByValueAllNegativeTest(int value, int[] array)
+        {
+            LinkedList actual = new LinkedList(array);
+
+            Assert.Throws<ArgumentException>(() => actual.DeleteByValueAll(value));
+        }
+
+        [TestCase(new int[] { 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 })]
+        [TestCase(new int[] { 6, 7, 8 }, new int[] { }, new int[] { 6, 7, 8 })]
+        [TestCase(new int[] { }, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5 })]
+        public void AddMassiveTest(int[] values, int[] array, int[] expectedArray)
+        {
+            LinkedList actual = new LinkedList(array);
+            LinkedList expected = new LinkedList(expectedArray);
+
+            actual.Add(values);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, new int[] { 1, 2, 3, 4, 5 }, new int[] { 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 1, 2, 3, 4, 5 })]
+        [TestCase(new int[] { 6, 7, 8 }, new int[] { }, new int[] { 6, 7, 8 })]
+        [TestCase(new int[] { }, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5 })]
+        public void AddFirstMassiveTest(int[] values, int[] array, int[] expectedArray)
+        {
+            LinkedList actual = new LinkedList(array);
+            LinkedList expected = new LinkedList(expectedArray);
+
+            actual.AddFirst(values);
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

@@ -83,6 +83,37 @@ namespace DataStructure.LinkedLists
             
         }
 
+        public void Add(int[] values)
+        {
+            if (Length > 0)
+            {
+                Node tmp = _root;
+
+                for (int i = 0; i < Length - 1; i++)
+                {
+                    tmp = tmp.Next;
+                }
+                for (int i = 0; i < values.Length; i++)
+                {
+                    tmp.Next = new Node(values[i]);
+                    tmp = tmp.Next;
+                }
+                Length+=values.Length;
+            }
+            else if(values.Length > 0)
+            {
+                _root = new Node(values[0]);
+                Node tmp = _root;
+                for (int i = 1; i < values.Length; i++)
+                {
+                    tmp.Next = new Node(values[i]);
+                    tmp = tmp.Next;
+                }
+                Length+=values.Length;
+            }
+
+        }
+
         public void AddFirst(int value)
         {
             if(Length > 0)
@@ -96,6 +127,33 @@ namespace DataStructure.LinkedLists
             {
                 _root = new Node(value);
                 Length++;
+            }
+        }
+
+        public void AddFirst(int[] values)
+        {
+            if (Length > 0)
+            {
+                
+                for(int i = values.Length-1; i >= 0; i--)
+                {
+                    Node tmp = _root;
+                    _root = new Node(values[i]);
+                    _root.Next = tmp;
+                }
+                
+                Length+=values.Length;
+            }
+            else if(values.Length > 0)
+            {
+                _root = new Node(values[0]);
+                Node tmp = _root;
+                for (int i = 1; i < values.Length; i++)
+                {
+                    tmp.Next = new Node(values[i]);
+                    tmp = tmp.Next;
+                }
+                Length += values.Length;
             }
         }
 
@@ -436,6 +494,146 @@ namespace DataStructure.LinkedLists
             else
             {
                 throw new InvalidOperationException();
+            }
+        }
+
+        public void Sort()
+        {
+            if (_root != null && _root.Next != null)
+            {
+                Node next = _root.Next;
+                Node key;
+                Node current;
+                while (next.Next != null)
+                {
+                    key = next.Next;
+                    next.Next = next.Next.Next;
+                    next = next.Next;
+                    current = _root;
+
+                    while (current.Next != null && current.Next.Value < key.Value)
+                    {
+                        current = current.Next;
+                    }
+                    Node tmp = current.Next;
+                    current.Next = key;
+                    key.Next = tmp;
+
+                    Node prev = _root;
+                    while (prev.Next != next)
+                    {
+                        prev = prev.Next;
+                    }
+                    next = prev;
+                }
+                if (_root.Value > _root.Next.Value)
+                {
+                    key = _root;
+                    _root = key.Next;
+                    current = _root;
+                    while (current.Next != null && current.Next.Value < key.Value)
+                    {
+                        current = current.Next;
+                    }
+                    Node tmp = current.Next;
+                    current.Next = key;
+                    key.Next = tmp;
+                }
+            }
+        }
+
+        public void SortInversion()
+        {
+            if (_root != null && _root.Next != null)
+            {
+                Node next = _root.Next;
+                Node key;
+                Node current;
+                while (next.Next != null)
+                {
+                    key = next.Next;
+                    next.Next = next.Next.Next;
+                    next = next.Next;
+                    current = _root;
+
+                    while (current.Next != null && current.Next.Value > key.Value)
+                    {
+                        current = current.Next;
+                    }
+                    Node tmp = current.Next;
+                    current.Next = key;
+                    key.Next = tmp;
+
+                    Node prev = _root;
+                    while (prev.Next != next)
+                    {
+                        prev = prev.Next;
+                    }
+                    next = prev;
+                }
+                if (_root.Value < _root.Next.Value)
+                {
+                    key = _root;
+                    _root = key.Next;
+                    current = _root;
+                    while (current.Next != null && current.Next.Value > key.Value)
+                    {
+                        current = current.Next;
+                    }
+                    Node tmp = current.Next;
+                    current.Next = key;
+                    key.Next = tmp;
+                }
+            }
+        }
+
+        public void DeleteByValue(int value)
+        {
+            if(_root != null)
+            {
+                Node current = _root;
+                int i;
+                for (i = 0;i < Length ; i++)
+                {                    
+                    if(current.Value == value)
+                    {
+                        DeleteByIndex(i);
+                        
+                        return;
+
+                    }
+                    current = current.Next;
+                }
+                
+            }
+            throw new ArgumentException("Value is not exist");
+        }
+
+        public void DeleteByValueAll(int value)
+        {
+            bool isExist = false;
+            if (_root != null)
+            {
+                Node current = _root;
+                Node prev =current;
+                int i;
+                for (i = 0; i < Length; i++)
+                {
+                    if (current.Value == value)
+                    {
+                        DeleteByIndex(i);
+                        isExist = true;
+                        current = prev;
+                        i--;                        
+                    }
+                    prev = current;
+                    current = current.Next;
+                }
+
+            }
+            if (!isExist)
+            {
+                throw new ArgumentException("Value is not exist");
             }
         }
     }
