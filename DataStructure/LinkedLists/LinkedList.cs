@@ -102,14 +102,7 @@ namespace DataStructure.LinkedLists
             }
             else if(values.Length > 0)
             {
-                _root = new Node(values[0]);
-                Node tmp = _root;
-                for (int i = 1; i < values.Length; i++)
-                {
-                    tmp.Next = new Node(values[i]);
-                    tmp = tmp.Next;
-                }
-                Length+=values.Length;
+                AddArrayToEmptyList(values);
             }
 
         }
@@ -146,14 +139,7 @@ namespace DataStructure.LinkedLists
             }
             else if(values.Length > 0)
             {
-                _root = new Node(values[0]);
-                Node tmp = _root;
-                for (int i = 1; i < values.Length; i++)
-                {
-                    tmp.Next = new Node(values[i]);
-                    tmp = tmp.Next;
-                }
-                Length += values.Length;
+                AddArrayToEmptyList(values);
             }
         }
 
@@ -182,6 +168,37 @@ namespace DataStructure.LinkedLists
             {
                 _root = new Node(value);
                 Length++;
+            }
+        }
+
+        public void AddByIndex(int index, int[] values)
+        {
+            if (index < 0 || index > Length)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            if (Length > 0)
+            {
+                Node current = _root;
+
+                for (int i = 0; i < index - 1; i++)
+                {
+                    current = current.Next;
+                }
+
+                Node tmp = current.Next;
+                for (int i = 0; i < values.Length; i++)
+                {
+                    current.Next = new Node(values[i]);
+                    current = current.Next;
+                }
+                current.Next = tmp;
+                Length+=values.Length;
+
+            }
+            else
+            {
+                AddArrayToEmptyList(values);
             }
         }
 
@@ -635,6 +652,18 @@ namespace DataStructure.LinkedLists
             {
                 throw new ArgumentException("Value is not exist");
             }
+        }
+
+        private void AddArrayToEmptyList(int[] values)
+        {
+            _root = new Node(values[0]);
+            Node tmp = _root;
+            for (int i = 1; i < values.Length; i++)
+            {
+                tmp.Next = new Node(values[i]);
+                tmp = tmp.Next;
+            }
+            Length += values.Length;
         }
     }
 }

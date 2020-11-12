@@ -599,5 +599,27 @@ namespace DataStructure.Tests
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestCase(3, new int[] { 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 4, 5 })]
+        [TestCase(0, new int[] { 6, 7, 8 }, new int[] { }, new int[] { 6, 7, 8 })]
+        [TestCase(2, new int[] { }, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(5, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5, 1, 2, 3 })]
+        public void AddByIndexMassiveTest(int index, int[] values, int[] array, int[] expectedArray)
+        {
+            LinkedList actual = new LinkedList(array);
+            LinkedList expected = new LinkedList(expectedArray);
+            actual.AddByIndex(index, values);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(5, new int[] { })]
+        [TestCase(-1, new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(6, new int[] { 1, 2, 3, 4, 5 })]
+        public void AddByIndexMassiveNegativeTest(int index, int[] array)
+        {
+            LinkedList actual = new LinkedList(array);
+
+            Assert.Throws<IndexOutOfRangeException>(() => actual.AddByIndex(index, new int[] { 1, 2, 3 }));
+        }
     }
 }
