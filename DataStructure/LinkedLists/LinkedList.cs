@@ -285,5 +285,36 @@ namespace DataStructure.LinkedLists
             }
             return tmp.Value;
         }
+
+        public int GetIndexByValue(int value)
+        {
+            if(_root != null)
+            {
+                Node tmp = _root;
+                for(int i = 0; i < Length; i++)
+                {
+                    if(tmp.Value == value)
+                    {
+                        return i;
+                    }
+                    tmp = tmp.Next;
+                }
+            }
+            throw new ArgumentException("Value is not exist");
+        }
+
+        public void SetValueByIndex(int index, int value)
+        {
+            if (index < 0 || index >= Length)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            Node tmp = _root;
+            for (int i = 1; i <= index; i++)
+            {
+                tmp = tmp.Next;
+            }
+            tmp.Value = value;
+        }
     }
 }
