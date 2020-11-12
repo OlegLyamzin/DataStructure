@@ -316,5 +316,35 @@ namespace DataStructure.LinkedLists
             }
             tmp.Value = value;
         }
+
+        public void Reverse()
+        {
+            if (_root != null && _root.Next != null)
+            {
+                Node first = _root;
+                Node prev = _root;
+                Node current = _root;
+
+                while(_root.Next!= null)
+                {
+                    prev = _root;
+                    _root = _root.Next;
+                }
+                _root.Next = prev;
+                
+                for (int i = 1; i < Length; i++)
+                {
+                    current = first;
+                    prev = current;
+                    for(int j = 1; j < Length - i; j++)
+                    {
+                        prev = current;
+                        current = current.Next;
+                    }
+                    current.Next = prev;
+                }
+                current.Next = null;
+            }
+        }
     }
 }

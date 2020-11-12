@@ -375,5 +375,19 @@ namespace DataStructure.Tests
 
             Assert.Throws<IndexOutOfRangeException>(() => actual.SetValueByIndex(index, value));
         }
+
+        [TestCase(new int[] { 1, 2, 3, 4, 5 }, new int[] { 5, 4, 3, 2, 1 })]
+        [TestCase(new int[] { 0 }, new int[] { 0 })]
+        [TestCase(new int[] { }, new int[] { })]
+        [TestCase(new int[] { 1, 43, 4, 5, 2, 1 }, new int[] { 1, 2, 5, 4, 43, 1 })]
+        public void ReverseTest(int[] array, int[] expectedArray)
+        {
+            LinkedList actual = new LinkedList(array);
+            LinkedList expected = new LinkedList(expectedArray);
+
+            actual.Reverse();
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
