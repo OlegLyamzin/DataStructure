@@ -6,7 +6,7 @@ namespace DataStructure.LinkedLists
 {
     public class LinkedList
     {
-        public int Length { get; set; }
+        public int Length { get; private set; }
 
         private Node _root;
 
@@ -74,6 +74,7 @@ namespace DataStructure.LinkedLists
             Length = 0;
         }
 
+        
         public void Add(int value)
         {
             if (Length > 0)
@@ -371,31 +372,49 @@ namespace DataStructure.LinkedLists
         {
             if (_root != null && _root.Next != null)
             {
-                Node first = _root;
-                Node prev = _root;
-                Node current = _root;
-
-                while(_root.Next!= null)
+                Node oldRoot = _root;
+                Node tmp = _root.Next;
+                while (oldRoot.Next != null)
                 {
-                    prev = _root;
-                    _root = _root.Next;
+                    tmp = oldRoot.Next;
+                    oldRoot.Next = oldRoot.Next.Next;
+                    tmp.Next = _root;
+                    _root = tmp;
                 }
-                _root.Next = prev;
-                
-                for (int i = 1; i < Length; i++)
-                {
-                    current = first;
-                    prev = current;
-                    for(int j = 1; j < Length - i; j++)
-                    {
-                        prev = current;
-                        current = current.Next;
-                    }
-                    current.Next = prev;
-                }
-                current.Next = null;
             }
         }
+
+
+        // Reverse Old
+        //public void Reverse()
+        //{
+        //    if (_root != null && _root.Next != null)
+        //    {
+        //        Node first = _root;
+        //        Node prev = _root;
+        //        Node current = _root;
+
+        //        while(_root.Next!= null)
+        //        {
+        //            prev = _root;
+        //            _root = _root.Next;
+        //        }
+        //        _root.Next = prev;
+                
+        //        for (int i = 1; i < Length; i++)
+        //        {
+        //            current = first;
+        //            prev = current;
+        //            for(int j = 1; j < Length - i; j++)
+        //            {
+        //                prev = current;
+        //                current = current.Next;
+        //            }
+        //            current.Next = prev;
+        //        }
+        //        current.Next = null;
+        //    }
+        //}
 
         public int GetMaximum()
         {
