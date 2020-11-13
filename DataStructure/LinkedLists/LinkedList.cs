@@ -351,7 +351,7 @@ namespace DataStructure.LinkedLists
                     tmp = tmp.Next;
                 }
             }
-            throw new ArgumentException("Value is not exist");
+            return -1;
         }
 
         public void SetValueByIndex(int index, int value)
@@ -617,12 +617,12 @@ namespace DataStructure.LinkedLists
                 }
                 
             }
-            throw new ArgumentException("Value is not exist");
+            
         }
 
         public void DeleteByValueAll(int value)
         {
-            bool isExist = false;
+            
             if (_root != null)
             {
                 Node current = _root;
@@ -633,7 +633,6 @@ namespace DataStructure.LinkedLists
                     if (current.Value == value)
                     {
                         DeleteByIndex(i);
-                        isExist = true;
                         current = prev;
                         i--;                        
                     }
@@ -642,10 +641,7 @@ namespace DataStructure.LinkedLists
                 }
 
             }
-            if (!isExist)
-            {
-                throw new ArgumentException("Value is not exist");
-            }
+            
         }               
 
         public override string ToString()
