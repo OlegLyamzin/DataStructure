@@ -224,7 +224,7 @@ namespace DataStructure
                     return i;
                 }
             }
-            throw new ArgumentException("Value is not exist");
+            return -1;
         }
 
         public void SetValueByIndex(int index, int value)
@@ -351,37 +351,30 @@ namespace DataStructure
         public void DeleteByValue(int value)
         {
             int i;
-            for(i = 0; i < Length && _array[i] != value; i++)
+            for(i = 0; i < Length; i++)
             {
-
+                if(Length != 0 && _array[i] == value)
+                {
+                    DeleteByIndex(i);
+                    return;
+                }
             }
 
-            if(i == Length)
-            {
-                throw new ArgumentException("Value is not exist");
-            }
-
-            DeleteByIndex(i);
+                       
         }
 
         public void DeleteByValueAll(int value)
         {
-            bool isExist = false;
+            
             for (int i = 0; i < Length; i++)
             {
                 if(Length != 0 &&_array[i] == value)
                 {
-                    DeleteByIndex(i);
-                    isExist = true;
+                    DeleteByIndex(i);                    
                     i--;
                 }
-            }
-
-            if (!isExist)
-            {
-                throw new ArgumentException("Value is not exist");
-            }
-
+            }                     
+            
         }
 
 

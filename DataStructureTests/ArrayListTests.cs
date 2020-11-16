@@ -337,15 +337,6 @@ namespace DataStructure.Tests
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase(6, new int[] { 1, 2, 3, 4, 5 })]
-        [TestCase(-1, new int[] { 1, 2, 3, 4, 5, 5, 5, 5 })]
-        [TestCase(0, new int[] {  })]
-        public void GetIndexByValueNegativeTest(int value, int[] array)
-        {
-            ArrayList actualArray = new ArrayList(array);
-            Assert.Throws<ArgumentException>(() => actualArray.GetIndexByValue(value));
-        }
-
         [TestCase(3, 10, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 10, 5 })]
         [TestCase(0, 1, new int[] { 0 }, new int[] { 1 })]
         [TestCase(5, -1, new int[] { 1, 43, 4, 5, 2, 1 }, new int[] { 1, 43, 4, 5, 2, -1 })]
@@ -506,19 +497,7 @@ namespace DataStructure.Tests
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase(6, new int[] { 1, 2, 3, 4, 5 })]
-        [TestCase(432, new int[] { 1, 2, 3, 4, 5 })]
-        [TestCase(1, new int[] { 0 })]
-        [TestCase(1, new int[] {  })]
-        [TestCase(5, new int[] { 1, -4, 3, 2, 1, 65 })]
-        public void DeleteByValueNegativeTest(int value, int[] array)
-        {
-            ArrayList actual = new ArrayList(array);
-
-            Assert.Throws<ArgumentException>(()=>actual.DeleteByValue(value));
-            
-        }
-
+        
         [TestCase(3, new int[] { 1, 2, 3, 4,3, 5 }, new int[] { 1,2, 4, 5 })]
         [TestCase(5, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4 })]
         [TestCase(0, new int[] { 0,0,0,0,0,0,0,0,0 }, new int[] { })]
@@ -533,18 +512,7 @@ namespace DataStructure.Tests
 
             Assert.AreEqual(expected, actual);
         }
-
-        [TestCase(6, new int[] { 1, 2, 3, 4, 5 })]
-        [TestCase(432, new int[] { 1, 2, 3, 4, 5 })]
-        [TestCase(1, new int[] { 0 })]
-        [TestCase(1, new int[] { })]
-        [TestCase(5, new int[] { 1, -4, 3, 2, })]
-        public void DeleteByValueAllNegativeTest(int value, int[] array)
-        {
-            ArrayList actual = new ArrayList(array);
-
-            Assert.Throws<ArgumentException>(() => actual.DeleteByValueAll(value));
-        }
+        
 
         [TestCase(new int[] { 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 })]
         [TestCase(new int[] { 6, 7, 8 }, new int[] { }, new int[] { 6, 7, 8 })]
