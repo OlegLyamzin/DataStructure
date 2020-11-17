@@ -251,28 +251,20 @@ namespace DataStructure.DoubleLinkedLists
                 DeleteFirst(quantity);
                 return;
             }
-            else if(index == Length-1 && quantity ==1)
+            if (index == Length - 1 || index + quantity == Length)
             {
-                DeleteEnd();
+                DeleteEnd(quantity);
                 return;
             }
-            if (Length > 1 && Length - quantity != 0)
+
+            Node current = NodeByIndex(index);
+            for (int i = 0; i < quantity; i++)
             {
-                Node current = NodeByIndex(index);
-                for(int i = 0; i < quantity; i++)
-                {
-                    current.Next.Prev = current.Prev;
-                    current.Prev.Next = current.Next;
-                    current = current.Next;
-                }
-                Length -= quantity;
+                current.Next.Prev = current.Prev;
+                current.Prev.Next = current.Next;
+                current = current.Next;
             }
-            else
-            {
-                _root = null;
-                _tale = null;
-                Length -= quantity;
-            }
+            Length -= quantity;
         }
 
         public void DeleteByValue(int value)

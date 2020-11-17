@@ -218,6 +218,7 @@ namespace DataStructure.Tests
         }
 
         [TestCase(3, new int[] { 1, 2, 3, 4, 5 }, new int[] { 4, 5 })]
+        [TestCase(5, new int[] { 1, 2, 3, 4, 5 }, new int[] { })]
         [TestCase(3, new int[] { 0, 1, 2 }, new int[] { })]
         [TestCase(1, new int[] { 1, -4 }, new int[] { -4 })]
         public void DeleteFirstFewElementsTest(int quantity, int[] array, int[] expectedArray)
@@ -265,6 +266,7 @@ namespace DataStructure.Tests
         }
 
         [TestCase(0, 3, new int[] { 1, 2, 3, 4, 5 }, new int[] { 4, 5 })]
+        [TestCase(2, 3, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1,2 })]
         [TestCase(4, 1, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4 })]
         [TestCase(3, 2, new int[] { 1, -4, 3, 2, 1, 65 }, new int[] { 1, -4, 3, 65 })]
         public void DeleteByIndexFewElementsTest(int index, int quantity, int[] array, int[] expectedArray)
