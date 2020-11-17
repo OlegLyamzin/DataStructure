@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DataStructure.LinkedLists
 {
-    public class LinkedList
+    public class LinkedList:IList
     {
         public int Length { get; private set; }
 

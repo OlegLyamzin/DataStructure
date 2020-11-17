@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace DataStructure
 {
-    public class ArrayList
+    public class ArrayList:IList
     {
 
         public int Length { get; private set; }
