@@ -113,7 +113,12 @@ namespace DataStructure.Tests
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase(6, 3, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 6, 4, 5 })]
+        [TestCase(6, 3, new int[] { 1, 2, 3, 4, 5,6,7,8,9 }, new int[] { 1, 2, 3,6, 4, 5, 6, 7, 8, 9 })]
+        [TestCase(6, 0, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }, new int[] {6, 1, 2, 3, 4, 5, 6, 7, 8, 9 })]
+        [TestCase(6, 1, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }, new int[] { 1,6, 2, 3, 4, 5, 6, 7, 8, 9 })]
+        [TestCase(6, 7, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }, new int[] { 1, 2, 3, 4, 5, 6, 7,6, 8, 9 })]
+        [TestCase(6, 8, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }, new int[] { 1, 2, 3, 4, 5, 6, 7, 8,6, 9 })]
+        [TestCase(6, 9, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9,6 })]
         [TestCase(0, 0, new int[] { }, new int[] { 0 })]
         [TestCase(-4, 1, new int[] { 1 }, new int[] { 1, -4 })]
         public void AddByIndexTest(int value, int index, int[] array, int[] expectedArray)
@@ -571,6 +576,8 @@ namespace DataStructure.Tests
         }
 
         [TestCase(3, new int[] { 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 4, 5 })]
+        [TestCase(2, new int[] { 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,3, 4, 5 })]
+        [TestCase(1, new int[] { 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1,  6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 2, 3, 4, 5 })]
         [TestCase(0, new int[] { 6, 7, 8 }, new int[] { }, new int[] { 6, 7, 8 })]
         [TestCase(2, new int[] { }, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5 })]
         [TestCase(5, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5, 1, 2, 3 })]

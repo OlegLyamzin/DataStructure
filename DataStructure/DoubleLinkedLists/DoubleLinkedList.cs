@@ -124,12 +124,59 @@ namespace DataStructure.DoubleLinkedLists
         }
         public void AddByIndex(int index, int value)
         {
-            throw new NotImplementedException();
+            if (index < 0 || index > Length)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            if (index == 0)
+            {
+                AddFirst(value);
+                return;
+            }
+            else if (index == Length)
+            {
+                Add(value);
+                return;
+            }
+
+            Node current = NodeByIndex(index);
+            Node tmp = current.Next;
+            current.Next = new Node(value);
+            current.Next.Prev = current;
+            current.Next.Next = tmp;
+            tmp.Prev = current.Next;
+            Length++;
         }
 
         public void AddByIndex(int index, int[] values)
         {
-            throw new NotImplementedException();
+            if (index < 0 || index > Length)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            if (index == 0)
+            {
+                AddFirst(values);
+                return;
+            }
+            else if (index == Length)
+            {
+                Add(values);
+                return;
+            }
+
+            Node current = NodeByIndex(index);
+
+            Node tmp = current.Next;
+            for (int i = 0; i < values.Length; i++)
+            {
+                current.Next = new Node(values[i]);
+                current.Next.Prev = current;
+                current = current.Next;
+            }
+            current.Next = tmp;
+            tmp.Prev = current;
+            Length += values.Length;
         }
 
         public void DeleteByIndex(int index, int quantity = 1)
@@ -290,6 +337,31 @@ namespace DataStructure.DoubleLinkedLists
 
             _tale = tmp;
             Length += values.Length;
+        }
+
+        private Node NodeByIndex(int index)
+        {
+            Node current;
+
+            if (index < Length / 2)
+            {
+                current = _root;
+
+                for (int i = 1; i < index; i++)
+                {
+                    current = current.Next;
+                }
+            }
+            else
+            {
+                current = _tale;
+
+                for (int i = Length - 1; i >= index; i--)
+                {
+                    current = current.Prev;
+                }
+            }
+            return current;
         }
     }
 }
