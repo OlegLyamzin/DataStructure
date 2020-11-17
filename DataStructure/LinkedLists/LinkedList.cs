@@ -603,8 +603,7 @@ namespace DataStructure.LinkedLists
             if(_root != null)
             {
                 Node current = _root;
-                int i;
-                for (i = 0;i < Length ; i++)
+                for (int i = 0;i < Length ; i++)
                 {                    
                     if(current.Value == value)
                     {
@@ -627,8 +626,7 @@ namespace DataStructure.LinkedLists
             {
                 Node current = _root;
                 Node prev =current;
-                int i;
-                for (i = 0; i < Length; i++)
+                for (int i = 0; i < Length; i++)
                 {
                     if (current.Value == value)
                     {
