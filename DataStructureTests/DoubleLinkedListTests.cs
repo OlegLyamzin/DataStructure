@@ -284,10 +284,11 @@ namespace DataStructure.Tests
         [TestCase(5, -5, new int[] { 1, 2, 3, 4, 5 }, "IndexOutOfRangeException")]
         [TestCase(1, 0, new int[] { 1 }, "IndexOutOfRangeException")]
         [TestCase(0, 0, new int[] { }, "IndexOutOfRangeException")]
+        [TestCase(4, 2, new int[] { 1, 2, 3, 4, 5 }, "IndexOutOfRangeException")]
         [TestCase(0, 0, new int[] { 0 }, "ArgumentOutOfRangeException")]
         [TestCase(3, 0, new int[] { 1, 2, 3, 4, 5 }, "ArgumentOutOfRangeException")]
         [TestCase(0, -1, new int[] { 1, 2, 3, 4, 5 }, "ArgumentOutOfRangeException")]
-        [TestCase(2, -5, new int[] { 1, 2, 3, 4, 5 }, "ArgumentOutOfRangeException")]
+        [TestCase(2, -5, new int[] { 1, 2, 3, 4, 5 }, "ArgumentOutOfRangeException")]        
         public void DeleteByIndexNegativeTest(int index, int quantity, int[] array, string exception)
         {
             DoubleLinkedList actual = new DoubleLinkedList(array);

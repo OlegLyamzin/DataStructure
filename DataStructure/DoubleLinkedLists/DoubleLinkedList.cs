@@ -139,7 +139,7 @@ namespace DataStructure.DoubleLinkedLists
                 return;
             }
 
-            Node current = NodeByIndex(index);
+            Node current = NodeByIndex(index-1);
             Node tmp = current.Next;
             current.Next = new Node(value);
             current.Next.Prev = current;
@@ -165,7 +165,7 @@ namespace DataStructure.DoubleLinkedLists
                 return;
             }
 
-            Node current = NodeByIndex(index);
+            Node current = NodeByIndex(index-1);
 
             Node tmp = current.Next;
             for (int i = 0; i < values.Length; i++)
@@ -179,9 +179,100 @@ namespace DataStructure.DoubleLinkedLists
             Length += values.Length;
         }
 
+        public void DeleteEnd(int quantity = 1)
+        {
+            if (Length - quantity < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            if (quantity <= 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            if (Length > 1 && Length - quantity != 0)
+            {
+                
+                for (int i = Length; i > Length - quantity; i--)
+                {
+                    _tale = _tale.Prev;
+                }
+                _tale.Next = null;
+
+                Length -= quantity;
+            }
+            else
+            {
+                _root = null;
+                _tale = null;
+                Length -= quantity;
+            }
+        }
+
+        public void DeleteFirst(int quantity = 1)
+        {
+            if (Length - quantity < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            if (quantity <= 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            if (Length > 1 && Length - quantity != 0)
+            {
+
+                for (int i = 0; i < quantity; i++)
+                {
+                    _root = _root.Next;
+                }
+                _root.Prev = null;
+
+                Length -= quantity;
+            }
+            else
+            {
+                _root = null;
+                _tale = null;
+                Length -= quantity;
+            }
+        }
         public void DeleteByIndex(int index, int quantity = 1)
         {
-            throw new NotImplementedException();
+            if (index >= Length || index + quantity > Length || index < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            if (quantity <= 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            if (index == 0)
+            {
+                DeleteFirst(quantity);
+                return;
+            }
+            else if(index == Length-1 && quantity ==1)
+            {
+                DeleteEnd();
+                return;
+            }
+            if (Length > 1 && Length - quantity != 0)
+            {
+                Node current = NodeByIndex(index);
+                for(int i = 0; i < quantity; i++)
+                {
+                    current.Next.Prev = current.Prev;
+                    current.Prev.Next = current.Next;
+                    current = current.Next;
+                }
+                Length -= quantity;
+            }
+            else
+            {
+                _root = null;
+                _tale = null;
+                Length -= quantity;
+            }
         }
 
         public void DeleteByValue(int value)
@@ -190,16 +281,6 @@ namespace DataStructure.DoubleLinkedLists
         }
 
         public void DeleteByValueAll(int value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteEnd(int quantity = 1)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteFirst(int quantity = 1)
         {
             throw new NotImplementedException();
         }
@@ -347,7 +428,7 @@ namespace DataStructure.DoubleLinkedLists
             {
                 current = _root;
 
-                for (int i = 1; i < index; i++)
+                for (int i = 1; i <= index; i++)
                 {
                     current = current.Next;
                 }
@@ -356,7 +437,7 @@ namespace DataStructure.DoubleLinkedLists
             {
                 current = _tale;
 
-                for (int i = Length - 1; i >= index; i--)
+                for (int i = Length - 1; i > index; i--)
                 {
                     current = current.Prev;
                 }
