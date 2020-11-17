@@ -41,7 +41,17 @@ namespace DataStructure.DoubleLinkedLists
             _root = null;
             _tale = null;
         }
-        public int this[int index] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int this[int index]
+        {
+            get
+            {
+                return GetNodeByIndex(index).Value;
+            }
+            set 
+            {
+                GetNodeByIndex(index).Value = value;
+            }
+        }
 
         public void Add(int value)
         {
@@ -139,7 +149,7 @@ namespace DataStructure.DoubleLinkedLists
                 return;
             }
 
-            Node current = NodeByIndex(index-1);
+            Node current = GetNodeByIndex(index-1);
             Node tmp = current.Next;
             current.Next = new Node(value);
             current.Next.Prev = current;
@@ -165,7 +175,7 @@ namespace DataStructure.DoubleLinkedLists
                 return;
             }
 
-            Node current = NodeByIndex(index-1);
+            Node current = GetNodeByIndex(index-1);
 
             Node tmp = current.Next;
             for (int i = 0; i < values.Length; i++)
@@ -257,7 +267,7 @@ namespace DataStructure.DoubleLinkedLists
                 return;
             }
 
-            Node current = NodeByIndex(index);
+            Node current = GetNodeByIndex(index);
             for (int i = 0; i < quantity; i++)
             {
                 current.Next.Prev = current.Prev;
@@ -269,57 +279,181 @@ namespace DataStructure.DoubleLinkedLists
 
         public void DeleteByValue(int value)
         {
-            throw new NotImplementedException();
+            if (_root != null)
+            {
+                Node current = _root;
+                for (int i = 0; i < Length; i++)
+                {
+                    if (current.Value == value)
+                    {
+                        DeleteByIndex(i);
+                        return;
+                    }
+                    current = current.Next;
+                }
+
+            }
         }
 
         public void DeleteByValueAll(int value)
         {
-            throw new NotImplementedException();
+            if (_root != null)
+            {
+                Node current = _root;                               
+                for (int i = 0; i < Length; i++)
+                {
+                    if (current.Value == value)
+                    {
+                        DeleteByIndex(i);                        
+                        i--;
+                    }                    
+                    current = current.Next;
+                }
+
+            }
         }
 
         public int GetIndexByValue(int value)
         {
-            throw new NotImplementedException();
+            if (_root != null)
+            {
+                Node tmp = _root;
+                for (int i = 0; i < Length; i++)
+                {
+                    if (tmp.Value == value)
+                    {
+                        return i;
+                    }
+                    tmp = tmp.Next;
+                }
+            }
+            return -1;
         }
 
         public int GetIndexOfMaximum()
         {
-            throw new NotImplementedException();
+            if (_root != null)
+            {
+                Node tmp = _root;
+                int maximum = _root.Value;
+                int index = 0;
+                for (int i = 1; i < Length; i++)
+                {
+                    tmp = tmp.Next;
+                    if (tmp.Value > maximum)
+                    {
+                        maximum = tmp.Value;
+                        index = i;
+                    }
+                }
+                return index;
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
         }
 
         public int GetIndexOfMinimum()
         {
-            throw new NotImplementedException();
+            if (_root != null)
+            {
+                Node tmp = _root;
+                int minimum = _root.Value;
+                int index = 0;
+                for (int i = 1; i < Length; i++)
+                {
+                    tmp = tmp.Next;
+                    if (tmp.Value < minimum)
+                    {
+                        minimum = tmp.Value;
+                        index = i;
+                    }
+                }
+                return index;
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
         }
 
         public int GetLength()
         {
-            throw new NotImplementedException();
+            return Length;
         }
 
         public int GetMaximum()
         {
-            throw new NotImplementedException();
+            if (_root != null)
+            {
+                Node tmp = _root;
+                int maximum = _root.Value;
+                for (int i = 1; i < Length; i++)
+                {
+                    tmp = tmp.Next;
+                    if (tmp.Value > maximum)
+                    {
+                        maximum = tmp.Value;
+                    }
+                }
+                return maximum;
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
         }
 
         public int GetMinimum()
         {
-            throw new NotImplementedException();
+            if (_root != null)
+            {
+                Node tmp = _root;
+                int minimum = _root.Value;
+                for (int i = 1; i < Length; i++)
+                {
+                    tmp = tmp.Next;
+                    if (tmp.Value < minimum)
+                    {
+                        minimum = tmp.Value;
+                    }
+                }
+                return minimum;
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
         }
 
         public int GetValueByIndex(int index)
         {
-            throw new NotImplementedException();
+            return GetNodeByIndex(index).Value;
         }
 
         public void Reverse()
         {
-            throw new NotImplementedException();
+            if (_root != null && _root.Next != null)
+            {
+                Node current = _root;
+                Node tmp;
+                while (current != null) 
+                {
+                    tmp = current.Next;
+                    current.Next = current.Prev;
+                    current.Prev = tmp;
+                    current = current.Prev;
+                } 
+                tmp = _root;
+                _root = _tale;
+                _tale = tmp;
+            }
         }
 
         public void SetValueByIndex(int index, int value)
         {
-            throw new NotImplementedException();
+            GetNodeByIndex(index).Value = value;
         }
 
         public void Sort()
@@ -412,8 +546,12 @@ namespace DataStructure.DoubleLinkedLists
             Length += values.Length;
         }
 
-        private Node NodeByIndex(int index)
+        private Node GetNodeByIndex(int index)
         {
+            if (index < 0 || index >= Length)
+            {
+                throw new IndexOutOfRangeException();
+            }
             Node current;
 
             if (index < Length / 2)
