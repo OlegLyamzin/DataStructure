@@ -524,6 +524,7 @@ namespace DataStructure.Tests
         [TestCase(5, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4 })]
         [TestCase(0, new int[] { 0 }, new int[] { })]
         [TestCase(1, new int[] { 1, -4, 3, 2, 1, 65 }, new int[] { -4, 3, 2, 1, 65 })]
+        [TestCase(3, new int[] { 1, -4, 3, 2, 1, 65 }, new int[] { 1,-4, 2, 1, 65 })]
         public void DeleteByValueTest(int value, int[] array, int[] expectedArray)
         {
             DoubleLinkedList actual = new DoubleLinkedList(array);
