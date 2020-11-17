@@ -7,7 +7,7 @@ namespace DataStructure.DoubleLinkedLists
     public class DoubleLinkedList : IList
     {
 
-        public int Length { get; set; }
+        public int Length { get; private set; }
 
         private Node _root;
         private Node _tale;
@@ -63,25 +63,71 @@ namespace DataStructure.DoubleLinkedLists
 
         public void Add(int[] values)
         {
-            throw new NotImplementedException();
+            if (Length > 0)
+            {
+                Node tmp = _tale;
+                
+                for (int i = 0; i < values.Length; i++)
+                {
+                    tmp.Next = new Node(values[i]);
+                    tmp.Next.Prev = tmp;
+                    tmp = tmp.Next;
+                }
+                _tale = tmp;
+                Length += values.Length;
+            }
+            else if (values.Length > 0)
+            {
+                AddArrayToEmptyList(values);
+            }
         }
 
+
+        public void AddFirst(int value)
+        {
+            if (Length > 0)
+            {
+                Node tmp = _root;
+                tmp.Prev = new Node(value);
+                tmp.Prev.Next = tmp;
+                _root = tmp.Prev;
+                Length++;
+            }
+            else
+            {
+                _root = new Node(value);
+                _tale = _root;
+                Length++;
+            }
+        }
+
+        public void AddFirst(int[] values)
+        {
+            if (Length > 0)
+            {
+                Node tmp = _root;
+
+                for (int i = values.Length-1; i >= 0; i--)
+                {
+                    tmp.Prev = new Node(values[i]);
+                    tmp.Prev.Next = tmp;
+                    tmp = tmp.Prev;
+                }
+
+                _root = tmp;
+                Length += values.Length;
+            }
+            else if (values.Length > 0)
+            {
+                AddArrayToEmptyList(values);
+            }
+        }
         public void AddByIndex(int index, int value)
         {
             throw new NotImplementedException();
         }
 
         public void AddByIndex(int index, int[] values)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddFirst(int value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddFirst(int[] values)
         {
             throw new NotImplementedException();
         }
@@ -228,6 +274,22 @@ namespace DataStructure.DoubleLinkedLists
                 }
             }
             return str;
+        }
+        private void AddArrayToEmptyList(int[] values)
+        {
+            _root = new Node(values[0]);
+            Node tmp = _root;
+
+
+            for (int i = 1; i < values.Length; i++)
+            {
+                tmp.Next = new Node(values[i]);
+                tmp.Next.Prev = tmp;
+                tmp = tmp.Next;
+            }
+
+            _tale = tmp;
+            Length += values.Length;
         }
     }
 }
