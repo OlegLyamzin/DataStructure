@@ -47,7 +47,7 @@ namespace DataStructure.DoubleLinkedLists
             {
                 return GetNodeByIndex(index).Value;
             }
-            set 
+            set
             {
                 GetNodeByIndex(index).Value = value;
             }
@@ -57,7 +57,7 @@ namespace DataStructure.DoubleLinkedLists
         {
             if (Length > 0)
             {
-                Node tmp = _tale;                                
+                Node tmp = _tale;
                 tmp.Next = new Node(value);
                 tmp.Next.Prev = tmp;
                 _tale = tmp.Next;
@@ -76,7 +76,7 @@ namespace DataStructure.DoubleLinkedLists
             if (Length > 0)
             {
                 Node tmp = _tale;
-                
+
                 for (int i = 0; i < values.Length; i++)
                 {
                     tmp.Next = new Node(values[i]);
@@ -117,7 +117,7 @@ namespace DataStructure.DoubleLinkedLists
             {
                 Node tmp = _root;
 
-                for (int i = values.Length-1; i >= 0; i--)
+                for (int i = values.Length - 1; i >= 0; i--)
                 {
                     tmp.Prev = new Node(values[i]);
                     tmp.Prev.Next = tmp;
@@ -149,7 +149,7 @@ namespace DataStructure.DoubleLinkedLists
                 return;
             }
 
-            Node current = GetNodeByIndex(index-1);
+            Node current = GetNodeByIndex(index - 1);
             Node tmp = current.Next;
             current.Next = new Node(value);
             current.Next.Prev = current;
@@ -175,7 +175,7 @@ namespace DataStructure.DoubleLinkedLists
                 return;
             }
 
-            Node current = GetNodeByIndex(index-1);
+            Node current = GetNodeByIndex(index - 1);
 
             Node tmp = current.Next;
             for (int i = 0; i < values.Length; i++)
@@ -201,7 +201,7 @@ namespace DataStructure.DoubleLinkedLists
             }
             if (Length > 1 && Length - quantity != 0)
             {
-                
+
                 for (int i = Length; i > Length - quantity; i--)
                 {
                     _tale = _tale.Prev;
@@ -299,14 +299,14 @@ namespace DataStructure.DoubleLinkedLists
         {
             if (_root != null)
             {
-                Node current = _root;                               
+                Node current = _root;
                 for (int i = 0; i < Length; i++)
                 {
                     if (current.Value == value)
                     {
-                        DeleteByIndex(i);                        
+                        DeleteByIndex(i);
                         i--;
-                    }                    
+                    }
                     current = current.Next;
                 }
 
@@ -438,13 +438,13 @@ namespace DataStructure.DoubleLinkedLists
             {
                 Node current = _root;
                 Node tmp;
-                while (current != null) 
+                while (current != null)
                 {
                     tmp = current.Next;
                     current.Next = current.Prev;
                     current.Prev = tmp;
                     current = current.Prev;
-                } 
+                }
                 tmp = _root;
                 _root = _tale;
                 _tale = tmp;
@@ -458,12 +458,106 @@ namespace DataStructure.DoubleLinkedLists
 
         public void Sort()
         {
-            throw new NotImplementedException();
+            if (_root != null && _root.Next != null)
+            {
+                Node next = _root.Next;
+                Node key;
+                Node current;
+                while (next.Next != null)
+                {
+                    key = next;
+                    next = next.Next;
+                    if (key.Prev != null)
+                        key.Prev.Next = key.Next;
+                    key.Next.Prev = key.Prev;
+                    current = _root;
+                    while (current.Next != null && current.Next.Value < key.Value)
+                    {
+                        current = current.Next;
+                    }
+                    key.Next = current.Next;
+                    key.Prev = current;
+                    if (key.Next != null)
+                    {
+                        key.Next.Prev = key;
+                    }
+                    current.Next = key;
+                }
+                _tale = next;
+                if (_root.Value > _root.Next.Value)
+                {
+                    key = _root;
+                    _root = key.Next;
+                    _root.Prev = null;
+                    current = _root;
+                    while (current.Next != null && current.Next.Value < key.Value)
+                    {
+                        current = current.Next;
+                    }
+                    key.Next = current.Next;
+                    key.Prev = current;
+                    if (key.Next != null)
+                    {
+                        key.Next.Prev = key;
+                    }
+                    current.Next = key;
+                    if (key.Next == null)
+                        _tale = key;
+
+                }
+            }
         }
 
         public void SortInversion()
         {
-            throw new NotImplementedException();
+            if (_root != null && _root.Next != null)
+            {
+                Node next = _root.Next;
+                Node key;
+                Node current;
+                while (next.Next != null)
+                {
+                    key = next;
+                    next = next.Next;
+                    if (key.Prev != null)
+                        key.Prev.Next = key.Next;
+                    key.Next.Prev = key.Prev;
+                    current = _root;
+                    while (current.Next != null && current.Next.Value > key.Value)
+                    {
+                        current = current.Next;
+                    }
+                    key.Next = current.Next;
+                    key.Prev = current;
+                    if (key.Next != null)
+                    {
+                        key.Next.Prev = key;
+                    }
+                    current.Next = key;
+                }
+                _tale = next;
+                if (_root.Value < _root.Next.Value)
+                {
+                    key = _root;
+                    _root = key.Next;
+                    _root.Prev = null;
+                    current = _root;
+                    while (current.Next != null && current.Next.Value > key.Value)
+                    {
+                        current = current.Next;
+                    }
+                    key.Next = current.Next;
+                    key.Prev = current;
+                    if (key.Next != null)
+                    {
+                        key.Next.Prev = key;
+                    }
+                    current.Next = key;
+                    if (key.Next == null)
+                        _tale = key;
+
+                }
+            }
         }
 
         public override bool Equals(object obj)
@@ -489,8 +583,8 @@ namespace DataStructure.DoubleLinkedLists
                     tmp2 = tmp2.Next;
                 }
 
-                 tmp1 = _tale;
-                 tmp2 = doubleLinkedList._tale;
+                tmp1 = _tale;
+                tmp2 = doubleLinkedList._tale;
 
                 while (tmp1 != null || tmp2 != null)
                 {
@@ -510,17 +604,17 @@ namespace DataStructure.DoubleLinkedLists
             string str = "";
             if (Length != 0)
             {
-                Node tmp = _root;                
+                Node tmp = _root;
 
                 while (tmp != null)
                 {
                     str += tmp.Value + ";";
                     tmp = tmp.Next;
-                    
+
                 }
                 str += " Rev: ";
                 tmp = _tale;
-                
+
                 while (tmp != null)
                 {
                     str += tmp.Value + ";";
@@ -574,5 +668,7 @@ namespace DataStructure.DoubleLinkedLists
             }
             return current;
         }
+
+
     }
 }

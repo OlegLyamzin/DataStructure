@@ -113,12 +113,12 @@ namespace DataStructure.Tests
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase(6, 3, new int[] { 1, 2, 3, 4, 5,6,7,8,9 }, new int[] { 1, 2, 3,6, 4, 5, 6, 7, 8, 9 })]
-        [TestCase(6, 0, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }, new int[] {6, 1, 2, 3, 4, 5, 6, 7, 8, 9 })]
-        [TestCase(6, 1, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }, new int[] { 1,6, 2, 3, 4, 5, 6, 7, 8, 9 })]
-        [TestCase(6, 7, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }, new int[] { 1, 2, 3, 4, 5, 6, 7,6, 8, 9 })]
-        [TestCase(6, 8, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }, new int[] { 1, 2, 3, 4, 5, 6, 7, 8,6, 9 })]
-        [TestCase(6, 9, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9,6 })]
+        [TestCase(6, 3, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }, new int[] { 1, 2, 3, 6, 4, 5, 6, 7, 8, 9 })]
+        [TestCase(6, 0, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }, new int[] { 6, 1, 2, 3, 4, 5, 6, 7, 8, 9 })]
+        [TestCase(6, 1, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }, new int[] { 1, 6, 2, 3, 4, 5, 6, 7, 8, 9 })]
+        [TestCase(6, 7, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }, new int[] { 1, 2, 3, 4, 5, 6, 7, 6, 8, 9 })]
+        [TestCase(6, 8, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 6, 9 })]
+        [TestCase(6, 9, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }, new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 6 })]
         [TestCase(0, 0, new int[] { }, new int[] { 0 })]
         [TestCase(-4, 1, new int[] { 1 }, new int[] { 1, -4 })]
         public void AddByIndexTest(int value, int index, int[] array, int[] expectedArray)
@@ -266,7 +266,7 @@ namespace DataStructure.Tests
         }
 
         [TestCase(0, 3, new int[] { 1, 2, 3, 4, 5 }, new int[] { 4, 5 })]
-        [TestCase(2, 3, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1,2 })]
+        [TestCase(2, 3, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2 })]
         [TestCase(4, 1, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4 })]
         [TestCase(3, 2, new int[] { 1, -4, 3, 2, 1, 65 }, new int[] { 1, -4, 3, 65 })]
         public void DeleteByIndexFewElementsTest(int index, int quantity, int[] array, int[] expectedArray)
@@ -290,7 +290,7 @@ namespace DataStructure.Tests
         [TestCase(0, 0, new int[] { 0 }, "ArgumentOutOfRangeException")]
         [TestCase(3, 0, new int[] { 1, 2, 3, 4, 5 }, "ArgumentOutOfRangeException")]
         [TestCase(0, -1, new int[] { 1, 2, 3, 4, 5 }, "ArgumentOutOfRangeException")]
-        [TestCase(2, -5, new int[] { 1, 2, 3, 4, 5 }, "ArgumentOutOfRangeException")]        
+        [TestCase(2, -5, new int[] { 1, 2, 3, 4, 5 }, "ArgumentOutOfRangeException")]
         public void DeleteByIndexNegativeTest(int index, int quantity, int[] array, string exception)
         {
             DoubleLinkedList actual = new DoubleLinkedList(array);
@@ -475,6 +475,7 @@ namespace DataStructure.Tests
         [TestCase(new int[] { }, new int[] { })]
         [TestCase(new int[] { 1, 43, 4, 5, 2, 1 }, new int[] { 1, 1, 2, 4, 5, 43 })]
         [TestCase(new int[] { 6, 1, 43, 4, 5, 2, 1 }, new int[] { 1, 1, 2, 4, 5, 6, 43 })]
+        [TestCase(new int[] { 465, 6, 1, 43, 4, 5, 2, 1 }, new int[] { 1, 1, 2, 4, 5, 6, 43, 465 })]
         public void SortTest(int[] array, int[] expectedArray)
         {
             DoubleLinkedList actual = new DoubleLinkedList(array);
@@ -488,10 +489,10 @@ namespace DataStructure.Tests
         [Test]
         public void SortHugeListTest()
         {
-            int[] array = new int[1000];
+            int[] array = new int[30];
             Random random = new Random();
 
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 30; i++)
             {
                 array[i] = random.Next();
             }
@@ -510,6 +511,8 @@ namespace DataStructure.Tests
         [TestCase(new int[] { 0 }, new int[] { 0 })]
         [TestCase(new int[] { }, new int[] { })]
         [TestCase(new int[] { 1, 43, 4, 5, 2, 1 }, new int[] { 43, 5, 4, 2, 1, 1 })]
+        [TestCase(new int[] { 6, 1, 43, 4, 5, 2, 1 }, new int[] { 43, 6, 5, 4, 2, 1, 1 })]
+        [TestCase(new int[] { 465, 6, 1, 43, 4, 5, 2, 1 }, new int[] { 465, 43, 6, 5, 4, 2, 1, 1 })]
         public void SortInversionTest(int[] array, int[] expectedArray)
         {
             DoubleLinkedList actual = new DoubleLinkedList(array);
@@ -520,11 +523,41 @@ namespace DataStructure.Tests
 
         }
 
+        [Test]
+        public void SortInversionHugeListTest()
+        {
+            int[] array = new int[100];
+            int length = array.Length;
+
+            Random random = new Random();
+
+            for (int i = 0; i < length; i++)
+            {
+                array[i] = random.Next(1, 1000);
+            }
+
+            DoubleLinkedList actual = new DoubleLinkedList(array);
+
+            Array.Sort(array);
+            for (int i = 0; i < length / 2; i++)
+            {
+                int tmp = array[i];
+                array[i] = array[length - 1 - i];
+                array[length - 1 - i] = tmp;
+            }
+
+            DoubleLinkedList expected = new DoubleLinkedList(array);
+
+            actual.SortInversion();
+
+            Assert.AreEqual(expected, actual);
+        }
+
         [TestCase(1, new int[] { 1, 2, 3, 4, 5 }, new int[] { 2, 3, 4, 5 })]
         [TestCase(5, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4 })]
         [TestCase(0, new int[] { 0 }, new int[] { })]
         [TestCase(1, new int[] { 1, -4, 3, 2, 1, 65 }, new int[] { -4, 3, 2, 1, 65 })]
-        [TestCase(3, new int[] { 1, -4, 3, 2, 1, 65 }, new int[] { 1,-4, 2, 1, 65 })]
+        [TestCase(3, new int[] { 1, -4, 3, 2, 1, 65 }, new int[] { 1, -4, 2, 1, 65 })]
         public void DeleteByValueTest(int value, int[] array, int[] expectedArray)
         {
             DoubleLinkedList actual = new DoubleLinkedList(array);
@@ -580,8 +613,8 @@ namespace DataStructure.Tests
         }
 
         [TestCase(3, new int[] { 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 4, 5 })]
-        [TestCase(2, new int[] { 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,3, 4, 5 })]
-        [TestCase(1, new int[] { 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1,  6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 2, 3, 4, 5 })]
+        [TestCase(2, new int[] { 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 3, 4, 5 })]
+        [TestCase(1, new int[] { 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 2, 3, 4, 5 })]
         [TestCase(0, new int[] { 6, 7, 8 }, new int[] { }, new int[] { 6, 7, 8 })]
         [TestCase(2, new int[] { }, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5 })]
         [TestCase(5, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3, 4, 5 }, new int[] { 1, 2, 3, 4, 5, 1, 2, 3 })]
