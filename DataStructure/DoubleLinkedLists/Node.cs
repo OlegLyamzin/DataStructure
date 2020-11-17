@@ -4,7 +4,16 @@ using System.Text;
 
 namespace DataStructure.DoubleLinkedLists
 {
-    class Node
+    public class Node
     {
+        public int Value { get; set; }
+        public Node Prev { get; set; }
+        public Node Next { get; set; }
+        public Node(int value)
+        {
+            Value = value;
+            Prev = null;
+            Next = null;
+        }
     }
 }
