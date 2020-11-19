@@ -205,8 +205,9 @@ namespace DataStructure.DoubleLinkedLists
                 for (int i = Length; i > Length - quantity; i--)
                 {
                     _tale = _tale.Prev;
+                    _tale.Next = null;
                 }
-                _tale.Next = null;
+                
 
                 Length -= quantity;
             }
@@ -234,8 +235,9 @@ namespace DataStructure.DoubleLinkedLists
                 for (int i = 0; i < quantity; i++)
                 {
                     _root = _root.Next;
+                    _root.Prev = null;
                 }
-                _root.Prev = null;
+                
 
                 Length -= quantity;
             }
