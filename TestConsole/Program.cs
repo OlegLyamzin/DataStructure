@@ -19,13 +19,13 @@ namespace TestConsole
 
             Console.WriteLine(list.ToJSON());
 
-            using (FileStream fs = File.Open("list.txt", FileMode.OpenOrCreate))
+            using (FileStream fs = File.Open("list.txt", FileMode.Create))
             {
                 list.Serialize(fs);
             }
 
 
-            using (FileStream fs = File.Open("list.txt", FileMode.OpenOrCreate))
+            using (FileStream fs = File.Open("list.txt", FileMode.Open))
             {
                 list1.Deserialize(fs);
             }
