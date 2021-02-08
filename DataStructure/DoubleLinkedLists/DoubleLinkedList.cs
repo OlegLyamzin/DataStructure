@@ -9,8 +9,8 @@ namespace DataStructure.DoubleLinkedLists
 
         public int Length { get; private set; }
 
-        private Node _root;
-        private Node _tale;
+        protected Node _root;
+        protected Node _tale;
 
         public DoubleLinkedList(int[] array)
         {
