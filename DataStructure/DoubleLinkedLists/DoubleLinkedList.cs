@@ -657,7 +657,7 @@ namespace DataStructure.DoubleLinkedLists
 
                 for (int i = 1; i <= index; i++)
                 {
-                    
+                    current = current.Next;
                 }
             }
             else

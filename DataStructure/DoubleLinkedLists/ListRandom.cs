@@ -85,19 +85,26 @@ namespace DataStructure.DoubleLinkedLists
         private NodeDTO[] GetNodeDTOsByJSON(string json)
         {
             json = json.Trim('[',']');
+            json = json.Replace("\"","");
             var jObjs = json.Split("},");
             var DTOs = new NodeDTO[jObjs.Length];
 
             for(int i = 0; i < jObjs.Length; i++)
             {
                 var properties = jObjs[i].Trim('{', '}').Split(',');
-                NodeDTO node = new NodeDTO()
+                NodeDTO node = new NodeDTO();
+                foreach(var property in properties)
                 {
-                    Value = Convert.ToInt32(properties[0].Split(':')[1]),
-                    Previous = Convert.ToInt32(properties[1].Split(':')[1]),
-                    Next = Convert.ToInt32(properties[2].Split(':')[1]),
-                    Random = Convert.ToInt32(properties[3].Split(':')[1])
-                };
+                    switch (property.Split(':')[0])
+                    {
+                        case "Value":
+                            node.Value = Convert.ToInt32(property.Split(':')[1]);
+                            break;
+                        case "Random":
+                            node.Random = Convert.ToInt32(property.Split(':')[1]);
+                            break;
+                    }
+                }
                 DTOs[i] = node;
             }
             return DTOs;
