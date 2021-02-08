@@ -8,32 +8,99 @@ namespace DataStructure.DoubleLinkedLists
 {
     public class ListRandom : DoubleLinkedList
     {
+        private Random _random;
+
+        public ListRandom() : base()
+        {
+            _random = new Random();
+        }
+
         public override Node AddByIndex(int index, int value)
         {
             Node node = base.AddByIndex(index, value);
-            node.Random = GetNodeByIndex(new Random().Next(0, Length));
+            node.Random = GetNodeByIndex(_random.Next(0, Length));
             return node;
         }
+
+
+        public override Node Add(int value)
+        {
+            Node node = base.Add(value);
+            node.Random = GetNodeByIndex(_random.Next(0, Length));
+            return node;
+        }
+
         public void Serialize(Stream s)
         {
-            var sb = new StringBuilder();
-            Node tmp = _root;
-            sb.Append("{ \"items\": [ ");
-            for(int i = 0; i < Length; i++)
+            if (s.CanWrite)
             {
-                sb.Append("{ \"Value\" : " + tmp.Value);
-                sb.Append(" \"Previous\": " + (i - 1));
-                sb.Append(" \"Next\": " + (i + 1));
-                sb.Append(" \"Random\": " + GetIndexByNode(tmp.Random) + " }, ");
+                var sw = new StreamWriter(s);
+                sw.Write(ToJSON());
+                sw.Flush();
             }
-            sb.Remove(sb.Length, 1);
-            sb.Append("] }");
-            var sw = new StreamWriter(s);
-            sw.Write(sb.ToString());
         }
 
         public void Deserialize(Stream s)
         {
+            if (s.CanRead)
+            {
+                var sr = new StreamReader(s);
+                string json = sr.ReadToEnd();
+                var DTOs = GetNodeDTOsByJSON(json);
+
+                _root = null;
+                Length = 0;
+                foreach(var DTO in DTOs)
+                {
+                    Add(DTO.Value);
+                }
+
+                Node tmp = _root;
+                foreach(var DTO in DTOs)
+                {
+                    tmp.Random = GetNodeByIndex(DTO.Random);
+                    tmp = tmp.Next;
+                }
+            }
+        }
+        
+        public string ToJSON()
+        {
+            var sb = new StringBuilder();
+            Node tmp = _root;
+            sb.Append("[");
+            for (int i = 0; i < Length; i++)
+            {
+                sb.Append("{\"Value\":" + tmp.Value);
+                sb.Append(",\"Previous\":" + (i - 1));
+                sb.Append(",\"Next\":" + (i + 1));
+                sb.Append(",\"Random\":" + GetIndexByNode(tmp.Random) + "},");
+                tmp = tmp.Next;
+            }
+            sb.Remove(sb.Length - 1, 1);
+            sb.Append("]");
+            return sb.ToString();
+        }
+
+        private NodeDTO[] GetNodeDTOsByJSON(string json)
+        {
+            json = json.Trim('[',']');
+            var jObjs = json.Split("},");
+            var DTOs = new NodeDTO[jObjs.Length];
+
+            for(int i = 0; i < jObjs.Length; i++)
+            {
+                var properties = jObjs[i].Trim('{', '}').Split(',');
+                NodeDTO node = new NodeDTO()
+                {
+                    Value = Convert.ToInt32(properties[0].Split(':')[1]),
+                    Previous = Convert.ToInt32(properties[1].Split(':')[1]),
+                    Next = Convert.ToInt32(properties[2].Split(':')[1]),
+                    Random = Convert.ToInt32(properties[3].Split(':')[1])
+                };
+                DTOs[i] = node;
+            }
+            return DTOs;
         }
 
         private int? GetIndexByNode(Node node)
@@ -49,5 +116,6 @@ namespace DataStructure.DoubleLinkedLists
             }
             return null;
         }
+
     }
 }

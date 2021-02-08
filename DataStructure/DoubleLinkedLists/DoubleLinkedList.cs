@@ -7,7 +7,7 @@ namespace DataStructure.DoubleLinkedLists
     public class DoubleLinkedList
     {
 
-        public int Length { get; private set; }
+        public int Length { get; protected set; }
 
         protected Node _root;
         protected Node _tale;
@@ -53,7 +53,7 @@ namespace DataStructure.DoubleLinkedLists
             }
         }
 
-        public Node Add(int value)
+        public virtual Node Add(int value)
         {
             if (Length > 0)
             {
@@ -657,7 +657,7 @@ namespace DataStructure.DoubleLinkedLists
 
                 for (int i = 1; i <= index; i++)
                 {
-                    current = current.Next;
+                    
                 }
             }
             else
